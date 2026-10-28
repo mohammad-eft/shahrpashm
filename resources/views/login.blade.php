@@ -9,11 +9,11 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{asset('js/tailwind.js')}}"></script>
 
-    <title>ورود |  طبابوک</title>
+    <title>ورود |  شهرپشم</title>
    <style>
     input {
         transition: all 0.3s ease;
-        color: #374151 !important;
+        color: #7AB39D !important;
     }
     input::placeholder {
         color: #9ca3af !important; 
@@ -22,22 +22,22 @@
     
     /* حالت focus */
     input:focus {
-        border-color: #8b5cf6 !important;
+        border-color: #4D806D !important;
         box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
-        color: #8b5cf6 !important;
+        color: #4D806D !important;
         outline: none !important;
     }
     
    
     input:focus::placeholder {
-        color: #c4b5fd !important; 
+        color: #6AA28D !important; 
         opacity: 0.8;
     }
     
    
     input:focus + span svg,
     .group:focus-within span svg {
-        color: #8b5cf6 !important;
+        color:  #4D806D !important;
     }
     
     input:-webkit-autofill,
@@ -45,7 +45,7 @@
     input:-webkit-autofill:focus, 
     input:-webkit-autofill:active {
         -webkit-background-clip: text;
-        -webkit-text-fill-color: #374151 !important;
+        -webkit-text-fill-color: #6AA28D !important;
         transition: background-color 5000s ease-in-out 0s;
         box-shadow: inset 0 0 20px 20px #f5f3ff !important;
     }
@@ -74,38 +74,24 @@
         box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.3);
     }
     
+    
     .footer-purple {
         background: linear-gradient(to right, #8b5cf6, #a78bfa, #8b5cf6);
     }
 </style>
 </head>
 
-<body class="bg-gradient-to-br from-purple-50 to-white">
+<body class="">
 
     <div class="absolute -top-5 invisible opacity-0 right-1/2 translate-x-1/2 w-2/3 z-999999 transition-all duration-500 ease-in-out" id="message"></div>
 
-    <div class="w-full flex flex-col justify-start items-center md:flex-row-reverse">
-    
-        <div class="flex justify-center max-sm:h-30 max-md:h-35 md:h-dvh bg-purple-gradient relative overflow-hidden w-full lg:w-1/2">
-           
-            <div class="absolute inset-0 opacity-10">
-                <div class="absolute top-10 left-10 w-40 h-40 bg-white rounded-full blur-3xl"></div>
-                <div class="absolute bottom-10 right-10 w-60 h-60 bg-purple-300 rounded-full blur-3xl"></div>
-            </div>
-            
-            <div class="flex flex-col my-12 items-center justify-center relative z-10 w-full">
-                <div class="w-full flex flex-row justify-center items-center animate-fadeIn">
-                    {{-- <img class="max-md:w-4/12 w-8/12" src="{{ asset('assets/img/e125edbd-f303-47f3-9dbc-af414f99ccb2.webp') }}" alt=""> --}}
-                    <div class="text-center">
-                        <h2 class="text-center font-bold text-white text-5xl mb-2 drop-shadow-lg">TabaBook</h2>
-                        <div class="w-20 h-1 bg-white mx-auto rounded-full"></div>
-                        <p class="text-white/80 text-sm mt-2">فروشگاه کتاب</p>
-                    </div>
-                </div>
-            </div>
+    <div class="w-full flex  justify-center items-center flex-row-reverse">
+        <div class="md:w-6/12">
+        <img class="hidden md:block" src="{{ asset('img/login.png') }}" alt="">
         </div>
+   
         <!-- بخش فرم ورود -->
-        <div class="w-full md:w-8/12 bg-white h-full flex flex-col max-md:justify-start justify-center mt-5 items-center px-4 lg:w-1/2">
+        <div class="w-full md:w-6/12 bg-white h-full flex flex-col max-md:justify-center justify-center mt-5 items-center px-4 lg:w-1/2">
             <div class="w-full flex flex-col items-center justify-center md:justify-center lg:w-115 md:w-10/12 px-4 animate-fadeIn">
                 <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">ورود به حساب کاربری</h1>
                 <p class="text-gray-500 text-sm mb-8">برای ورود اطلاعات خود را وارد کنید</p>
@@ -124,7 +110,7 @@
                                 </svg>
                             </span>
                             <input type="text"
-                                class="w-full pr-10 pl-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-purple-200 bg-gray-50/50"
+                                class="w-full pr-10 pl-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#1E3F34]/20 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-[#1E3F34] bg-gray-50/50"
                                 name="phoneNumber" 
                                 placeholder="شماره تلفن"
                                 dir="ltr">
@@ -136,7 +122,7 @@
                                 </svg>
                             </span>
                             <input type="number"
-                                class="w-full pr-10 pl-4 py-3 rounded-xl border-2 @error('phoneNumber') border-red-500 @enderror border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-purple-200 bg-gray-50/50"
+                                class="w-full pr-10 pl-4 py-3 rounded-xl border-2 @error('phoneNumber') border-red-500 @enderror border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-[#1E3F34]/30 bg-gray-50/50"
                                 name="phoneNumber" 
                                 id="phoneNumber"
                                 placeholder="شماره تلفن" value="{{ old('phoneNumber') }}" required>
@@ -147,7 +133,7 @@
                         
                         <!-- فیلد کلمه عبور -->
                         <div class="w-full" id="loginWay">
-                            {{-- <div class="relative w-full group @error('code') mb-5 @enderror flex gap-3">
+                            <div class="relative w-full group @error('code') mb-5 @enderror flex gap-3">
                                 <div class="w-3/4">
                                     <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-500 transition-colors">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -155,43 +141,43 @@
                                         </svg>
                                     </span>
                                     <input type="number"
-                                        class="w-full pr-10 pl-4 py-3 rounded-xl border-2 @error('code') border-red-500 @enderror border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-purple-200 bg-gray-50/50"
-                                        name="code" 
+                                        class="w-full pr-10 pl-4 py-3 rounded-xl border-2 @error('code') border-red-500 @enderror border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-[#1E3F34]/30 bg-gray-50/50"
+                                        name="code"
                                         id="code"
                                         placeholder="کد ارسال شده">
                                     @error('code')
-                                      <span class="text-red-500 text-sm absolute bg-white right-3 -bottom-6">{{ $message }}</span>  
+                                      <span class="text-red-500 text-sm absolute bg-white right-3 -bottom-6">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <button type="button" id="countDown" class="w-1/4 text-sm rounded-xl bg-purple-500 text-white cursor-pointer" onclick="sendCode(this)">ارسال کد</button>
-                            </div> --}}
-                            <div class="relative w-full group">
-                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-500 transition-colors">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                    </svg>
-                                </span>
-                                <input type="password"
-                                    class="w-full pr-10 pl-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-purple-200 bg-gray-50/50"
-                                    name="password" 
-                                    id="password"
-                                    placeholder="کلمه عبور">
+                                <button type="button" id="countDown" class="w-1/4 text-sm rounded-xl bg-[#1E3F34] text-white cursor-pointer" onclick="sendCode(this)">ارسال کد</button>
                             </div>
+{{--                            <div class="relative w-full group">--}}
+{{--                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-500 transition-colors">--}}
+{{--                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">--}}
+{{--                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>--}}
+{{--                                    </svg>--}}
+{{--                                </span>--}}
+{{--                                <input type="password"--}}
+{{--                                    class="w-full pr-10 pl-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-[#1E3F34]/30 bg-gray-50/50"--}}
+{{--                                    name="password" --}}
+{{--                                    id="password"--}}
+{{--                                    placeholder="کلمه عبور">--}}
+{{--                            </div>--}}
                         </div>
                         
                         <!-- گزینه‌های اضافی -->
                         <div class="w-full flex items-center justify-between mt-2">
                             <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-purple-500 focus:ring-purple-300">
+                                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-[#1E3F34]/90 focus:[#1E3F34]">
                                 <span class="text-sm text-gray-600">مرا به خاطر بسپار</span>
                             </label>
-                            {{-- <button type="button" class="text-sm text-purple-500 hover:text-purple-600 transition-colors font-medium cursor-pointer" onclick="loginWithPassKey(this)">ورود با رمز عبور</button> --}}
+                            <button type="button" class="text-sm text-[#1E3F34]/90 hover:text-[#1E3F34] transition-colors font-medium cursor-pointer" onclick="loginWithPassKey(this)">ورود با رمز عبور</button>
                         </div>
                         
                         <!-- دکمه ورود -->
                         <button type="submit"
                             id="submitBtn"
-                            class="btn-purple w-full text-center text-white p-3.5 rounded-xl font-medium text-lg mt-4 cursor-pointer shadow-lg shadow-purple-200" onclick="loginToAccount(event, 'password')">
+                            class="bg-[#1E3F34] w-full text-center text-white p-3.5 rounded-xl font-medium text-lg mt-4 cursor-pointer shadow-lg shadow-purple-200" onclick="loginToAccount(event, 'password')">
                             ورود به حساب
                         </button>
                         
@@ -199,7 +185,7 @@
                         <div class="w-full text-center mt-4">
                             <span class="text-gray-600">
                                 حساب کاربری ندارید؟
-                                <a href="{{ route('signup') }}" class="text-purple-500 font-semibold hover:text-purple-600 transition-colors mr-1">
+                                <a href="{{ route('signup') }}" class="text-[#1E3F34] font-semibold hover:[#1E3F34] transition-colors mr-1">
                                     ثبت نام کنید!
                                 </a>
                             </span>
@@ -212,10 +198,18 @@
             </div>
         </div>
     </div>
+
+
+    <div class="fixed w-full h-dvh top-0 right-0 bg-black/50 transition-all duration-300 flex justify-center items-center invisible opacity-0" id="loader">
+        <div class="w-11/12 lg:w-1/3 p-5 rounded-xl bg-white flex flex-col items-center justify-center gap-4 lg:gap-8">
+            <div class="size-16 rounded-full border-4 border-[#6AA28D] border-t-4 border-t-white animate-spin"></div>
+            <span class="lg:text-lg font-bold text-[#6AA28D]">لطفا شکیبا باشید ...</span>
+        </div>
+    </div>
     
     <!-- فوتر موبایل -->
    <footer class="md:hidden">
-        <div class="footer-purple w-full h-12 absolute bottom-0 flex flex-row gap-4 justify-center items-center text-white shadow-lg">
+        <div class="bg-[#1E3F34] w-full h-12 absolute bottom-0 flex flex-row gap-4 justify-center items-center text-white shadow-lg">
             <div class="flex items-center gap-2">
                 <span class="text-sm">آکادمی فائوس</span>
             </div>
@@ -230,9 +224,9 @@
 
     <!-- فوتر دسکتاپ (اختیاری) -->
     {{-- <div class="hidden md:block fixed bottom-4 right-4">
-        <a href="tel:09147794595" class="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-shadow border border-purple-100">
-            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a href="tel:09147794595" class="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-shadow border border-[#6AA28D]">
+            <div class="w-8 h-8 bg-[#1E3F34]/30 rounded-full flex items-center justify-center">
+                <svg class="w-4 h-4 text-[#1E3F34]/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                 </svg>
             </div>
@@ -248,6 +242,13 @@
         let loginWay = document.getElementById('loginWay')
         let code = document.getElementById('code')
         let link = "{{ url('/') }}/"
+        function loader(status){
+            if(status === 'open'){
+                document.getElementById('loader').classList.remove('invisible', 'opacity-0')
+            } if(status === 'close'){
+                document.getElementById('loader').classList.remove('invisible', 'opacity-0')
+            }
+        }
         function loginToAccount(e, way){
             password = document.getElementById('password')
             code = document.getElementById('code')
@@ -258,6 +259,7 @@
                     closeMessage()
                 }, 2000)
             } else {
+                loader('open')
                 if(way == 'code'){
                     console.log('code')
                     $.ajax({
@@ -270,8 +272,10 @@
                         },
                         success: function(response){
                             console.log(response)
+
                             if(response){
                                 loginForm.submit()
+                                loader('close')
                             } else {
                                 openMessage('کد وارد شده نامعتبر')
                                 setTimeout(function(){
@@ -299,6 +303,7 @@
                         },
                         success: function(response){
                             if(response){
+                                loader('close')
                                 loginForm.submit()
                             } else {
                                 openMessage('لطفا اطلاعات خودرا مجددا بررسی نمایید')

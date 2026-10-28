@@ -5,24 +5,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
-    <title>ثبت نام | طبابوک</title>
+    <title>ثبت نام | شهرپشم</title>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/tailwind.js') }}"></script>
     <style>
         input:focus {
-            border-color: #8b5cf6 !important;
+            border-color: #4D806D !important;
             box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
             outline: none !important;
         }
         
         input:focus + span svg,
         .group:focus-within span svg {
-            color: #8b5cf6 !important;
+            color:  #4D806D !important;
         }
         
         input {
             transition: all 0.3s ease;
-            color: #374151 !important;
+            color: #7AB39D !important;
         }
         
         input::placeholder {
@@ -31,7 +31,7 @@
         }
         
         input:focus::placeholder {
-            color: #c4b5fd !important;
+            color: #6AA28D !important;
             opacity: 0.8;
         }
         
@@ -40,7 +40,7 @@
         input:-webkit-autofill:focus, 
         input:-webkit-autofill:active {
             -webkit-background-clip: text;
-            -webkit-text-fill-color: #374151 !important;
+            -webkit-text-fill-color: #6AA28D !important;
             transition: background-color 5000s ease-in-out 0s;
             box-shadow: inset 0 0 20px 20px #f5f3ff !important;
         }
@@ -86,26 +86,13 @@
     </style>
 </head>
 
-<body class="bg-gradient-to-br from-purple-50 to-white">
+<body class="">
     <div class="absolute -top-5 invisible opacity-0 right-1/2 translate-x-1/2 w-2/3 z-999999 transition-all duration-500 ease-in-out" id="message"></div>
-    <div class="w-full h-dvh flex flex-col justify-start items-center md:flex-row-reverse">
-        <!-- بخش راست با تم بنفش -->
-                <div class="flex justify-center max-sm:h-30 max-md:h-35 md:h-dvh bg-purple-gradient relative overflow-hidden w-full lg:w-1/2">
-            <!-- المان‌های تزئینی -->
-            <div class="absolute inset-0 opacity-10">
-                <div class="absolute top-10 left-10 w-40 h-40 bg-white rounded-full blur-3xl"></div>
-                <div class="absolute bottom-10 right-10 w-60 h-60 bg-purple-300 rounded-full blur-3xl"></div>
-            </div>
-            <div class="flex flex-col my-12 items-center justify-center relative z-10 w-full">
-                <div class="w-full flex flex-row justify-center items-center animate-fadeIn">
-                    <div class="text-center">
-                        <h2 class="text-center font-bold text-white text-5xl mb-2 drop-shadow-lg">TabaBook</h2>
-                        <div class="w-20 h-1 bg-white mx-auto rounded-full"></div>
-                        <p class="text-white/80 text-sm">فروشگاه کتاب</p>
-                    </div>
-                </div>
-            </div>
+     <div class="w-full flex  justify-center items-center flex-row-reverse">
+        <div class="md:w-6/12">
+        <img class="hidden md:block" src="{{ asset('img/login.png') }}" alt="">
         </div>
+     
         <!-- بخش فرم ثبت نام -->
         <div class="w-full bg-white flex justify-center md:px-5 mt-5 lg:w-1/2">
             <div class="flex flex-col items-center justify-center w-full animate-fadeIn">
@@ -119,13 +106,13 @@
                         @csrf
                         <!-- فیلد شماره تلفن -->
                         <div class="relative w-full group @error('phoneNumber') mb-5 @enderror">
-                            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-500 transition-colors">
+                            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#1E3F34] transition-colors">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                                 </svg>
                             </span>
                             <input type="number" min="0"
-                                class="w-full pr-10 pl-4 py-3 rounded-xl border-2 @error('phoneNumber') border-red-500 @enderror border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-purple-200 bg-gray-50/50"
+                                class="w-full pr-10 pl-4 py-3 rounded-xl border-2 @error('phoneNumber') border-red-500 @enderror border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-[#1E3F34]/30 bg-gray-50/50"
                                 name="phoneNumber" 
                                 id="phoneNumber"
                                 placeholder="شماره تلفن" value="{{ old('phoneNumber') }}" required>
@@ -141,13 +128,13 @@
                                 </svg>
                             </span>
                             <input type="password"
-                                class="w-full pr-10 pl-4 py-3 rounded-xl border-2 @error('password') border-red-500 @enderror border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-purple-200 bg-gray-50/50"
+                                class="w-full pr-10 pl-4 py-3 rounded-xl border-2 @error('password') border-red-500 @enderror border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-[#1E3F34]/30 bg-gray-50/50"
                                 name="password" id="password" placeholder="کلمه عبور" required value="{{ old('password') }}">
                             @error('password')
                               <span class="text-red-500 text-sm absolute bg-white right-3 -bottom-6">{{ $message }}</span>  
                             @enderror
                         </div>
-                        {{-- <div class="relative w-full group @error('password') mb-5 @enderror flex gap-3">
+                        <div class="relative w-full group @error('password') mb-5 @enderror flex gap-3">
                             <div class="w-3/4">
                                 <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purple-500 transition-colors">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -155,22 +142,22 @@
                                     </svg>
                                 </span>
                                 <input type="number"
-                                    class="w-full pr-10 pl-4 py-3 rounded-xl border-2 @error('code') border-red-500 @enderror border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-purple-200 bg-gray-50/50"
+                                    class="w-full pr-10 pl-4 py-3 rounded-xl border-2 @error('code') border-red-500 @enderror border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-[#1E3F34]/30 bg-gray-50/50"
                                     name="code" id="code" placeholder="کد ارسال شده" required value="{{ old('code') }}">
                                 @error('code')
-                                  <span class="text-red-500 text-sm absolute bg-white right-3 -bottom-6">{{ $message }}</span>  
+                                  <span class="text-red-500 text-sm absolute bg-white right-3 -bottom-6">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <button type="button" id="countDown" class="w-1/4 text-sm rounded-xl bg-purple-500 text-white cursor-pointer" onclick="sendCode(this)">ارسال کد</button>
-                        </div> --}}
+                            <button type="button" id="countDown" class="w-1/4 text-sm rounded-xl bg-[#1E3F34] text-white cursor-pointer" onclick="sendCode(this)">ارسال کد</button>
+                        </div>
                         
                         <!-- چک‌باکس قوانین -->
-                        <div class="w-full flex gap-3 items-center mt-2 p-3 bg-purple-50 rounded-xl border border-purple-200">
-                            <input type="checkbox" name="rules" value="1" class="w-5 h-5 rounded border-gray-300 text-purple-500 focus:ring-purple-300"
+                        <div class="w-full flex gap-3 items-center mt-2 p-3 bg-[#1E3F34]/10 rounded-xl border border-purple-200">
+                            <input type="checkbox" name="rules" value="1" class="w-5 h-5 rounded border-gray-300 text-[#1E3F34] focus:ring-[#1E3F34]/50"
                                 onchange="checkRule()" id="rule">
                             <label for="rules" class="text-sm text-gray-600 cursor-pointer">
                                 <span>قوانین و مقررات را </span>
-                                <span class="text-purple-500 font-semibold hover:text-purple-600 cursor-pointer transition-colors" onclick="rules('open')">مطالعه</span>
+                                <span class="text-[#1E3F34]/90 font-semibold hover:text-[#1E3F34] cursor-pointer transition-colors" onclick="rules('open')">مطالعه</span>
                                 <span> کردم و می‌پذیرم</span>
                             </label>
                         </div>
@@ -179,9 +166,9 @@
                         <div class="fixed w-full h-dvh bg-black/50 top-0 right-0 opacity-0 invisible transition-all duration-500 backdrop-blur-xs z-50"
                             id="rules">
                             <div
-                                class="w-2/3 h-5/6 lg:h-2/3 bg-white mx-auto mt-10 lg:mt-20 rounded-2xl transition-all duration-300 delay-200 opacity-0 scale-75 relative shadow-2xl border-2 border-purple-200">
+                                class="w-2/3 h-5/6 lg:h-2/3 bg-white mx-auto mt-10 lg:mt-20 rounded-2xl transition-all duration-300 delay-200 opacity-0 scale-75 relative shadow-2xl border-2 border-[#1E3F34]/30">
                                 <div
-                                    class="w-full py-4 text-center text-lg font-bold sticky top-0 right-0 bg-gradient-to-l from-purple-500 to-purple-600 text-white rounded-t-2xl">
+                                    class="w-full py-4 text-center text-lg font-bold sticky top-0 right-0 bg-[#1E3F34]  text-white rounded-t-2xl">
                                     قوانین و مقررات
                                 </div>
                                 <div class="h-5/6 overflow-y-auto px-5 py-3"
@@ -200,7 +187,7 @@
                                 </div>
                                 <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2">
                                     <span
-                                        class="px-6 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-xl cursor-pointer transition-all duration-300 shadow-lg shadow-purple-200 text-sm font-medium"
+                                        class="px-6 py-2 bg-[#1E3F34]/80 hover:bg-[#1E3F34] text-white rounded-xl cursor-pointer transition-all duration-300 shadow-lg shadow-purple-200 text-sm font-medium"
                                         onclick="rules('close')">متوجه شدم</span>
                                 </div>
                                 <span
@@ -217,7 +204,7 @@
                         
                         <!-- دکمه ثبت نام -->
                         <button type="submit"
-                            class="btn-purple w-full text-center text-white p-3.5 rounded-xl font-medium text-lg mt-4 cursor-pointer shadow-lg shadow-purple-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            class="bg-[#1E3F34] w-full text-center text-white p-3.5 rounded-xl font-medium text-lg mt-4 cursor-pointer shadow-lg shadow-[#1E3F34]/20 disabled:opacity-50 disabled:cursor-not-allowed"
                             id="signupButton" disabled onclick="checkAuth(event)">
                             ثبت نام
                         </button>
@@ -226,7 +213,7 @@
                         <div class="w-full text-center mt-2">
                             <span class="text-sm text-gray-600">
                                 قبلاً ثبت نام کرده‌اید؟
-                                <a href="{{ route('login') }}" class="text-purple-500 font-semibold hover:text-purple-600 transition-colors mr-1">
+                                <a href="{{ route('login') }}" class="text-[#1E3F34]/90 font-semibold hover:text-[#1E3F34] transition-colors mr-1">
                                     وارد شوید
                                 </a>
                             </span>
@@ -237,6 +224,13 @@
         </div>
     </div>
 
+    <div class="fixed w-full h-dvh top-0 right-0 bg-black/50 transition-all duration-300 flex justify-center items-center invisible opacity-0" id="loader">
+        <div class="w-11/12 lg:w-1/3 p-5 rounded-xl bg-white flex flex-col items-center justify-center gap-4 lg:gap-8">
+            <div class="size-16 rounded-full border-4 border-(--primary-text-color) border-t-4 border-t-white animate-spin"></div>
+            <span class="lg:text-lg font-bold text-(--primary-text-color)">لطفا شکیبا باشید ...</span>
+        </div>
+    </div>
+
     <!-- فوتر موبایل -->
     <footer class="md:hidden">
         <div class="footer-purple w-full h-12 absolute bottom-0 flex flex-row gap-4 justify-center items-center text-white shadow-lg">
@@ -244,7 +238,7 @@
                 <span class="text-sm">آکادمی فائوس</span>
             </div>
             <a href="tel:09147794595" class="text-sm hover:underline flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4" fill="none" stroke="#1E3F34" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                 </svg>
                 <b>09147794595</b>
@@ -252,17 +246,25 @@
         </div>
     </footer>
 
+
+
     <!-- فوتر دسکتاپ -->
     <div class="hidden md:block fixed bottom-4 left-4">
         <a href="tel:09147794595" class="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-shadow border border-purple-100">
-            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-8 h-8 bg-[#1E3F34]/10 rounded-full flex items-center justify-center">
+                <svg class="w-4 h-4 text-[#1E3F34]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                 </svg>
             </div>
             <span class="text-gray-700 font-medium">09147794595</span>
         </a>
     </div>
+    <a href="https://shahrpashm.com" class="absolute top-5 right-5 flex items-center gap-2 bg-[#1E3F34]/10 hover:bg-[#1E3F34]/30 text-[#1E3F34]/90 hover:text-[#1E3F34] px-4 py-2.5 rounded-2xl transition-all duration-300 shadow-sm hover:shadow-md border border-[#1E3F34]/60 backdrop-blur-sm font-medium text-sm group">
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"></path>
+            </svg>
+            <span>خانه</span>
+        </a>
 
     <script>
         let link = "{{ url('/') }}/"
@@ -272,15 +274,23 @@
         let signupForm = document.getElementById('signupForm')
         let code = document.getElementById('code')
         let countDown = document.getElementById('countDown')
+        function loader(status){
+            if(status === 'open'){
+                document.getElementById('loader').classList.remove('invisible', 'opacity-0')
+            } if(status === 'close'){
+                document.getElementById('loader').classList.remove('invisible', 'opacity-0')
+            }
+        }
         function checkAuth(e) {
             e.preventDefault()
-            // || code.value == ''
-            if(phoneNumber.value == '' || password.value == ''){
+            if(phoneNumber.value == '' || password.value == '' || code.value == ''){
                 openMessage('پر کردن همه فیلد ها الزامی است')
                 setTimeout(function(){
                     closeMessage()
                 }, 2000)
+
             } else {
+                loader('open')
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -292,16 +302,18 @@
                     dataType: "json",
                     data: {
                         'phoneNumber': phoneNumber.value,
-                        // 'code': code.value
+                        'code': code.value
                     },
                     success: function(data){
-                        // if(!data.flag){
-                        //     // openMessage('کد وارد شده نامعتبر')
-                        //     openMessage('کد وارد شده نامعتبر')
-                        //     setTimeout(function(){
-                        //         closeMessage()
-                        //     }, 2000)
-                        // } else {
+                        console.log(data)
+                        loader('close')
+                        if(!data.flag){
+                            // openMessage('کد وارد شده نامعتبر')
+                            openMessage('کد وارد شده نامعتبر')
+                            setTimeout(function(){
+                                closeMessage()
+                            }, 2000)
+                        } else {
                             if (data.user) {
                                 openMessage('شما قبلا با این شماره ثبت نام کرده اید')
                                 setTimeout(function(){
@@ -311,7 +323,7 @@
                             } else {
                                 signupForm.submit()
                             }
-                        // }
+                        }
                     },
                     error: function(){
                         openMessage('خطا در دریافت اطلاعات')
@@ -322,100 +334,94 @@
                 })
             }
         }
-        // function sendCode(el){
-        //     el.innerHTML = "<div class='size-8 mx-auto border-2 border-white border-t-[#eb3153]/0 rounded-full animate-spin'></div>"
-        //     if(phoneNumber.value == '' || password.value == ''){
-        //         openMessage('پر کردن همه فیلد ها الزامی است')
-        //         setTimeout(function(){
-        //             closeMessage()
-        //         }, 2000)
-        //         el.innerHTML = 'ارسال کد'
-        //     } else {
-                
-        //         $.ajax({
-        //             url: link+"api/sendCode",
-        //             type: "POST",
-        //             dataType: "json",
-        //             data: {
-        //                 'phoneNumber': phoneNumber.value
-        //             },
-        //             success: function(response){
-        //                 el.innerHTML = 'ارسال کد'
-        //                 console.log('response')
-        //                 console.log(response)
-        //                 console.log(el)
-        //                 if(!response){
-        //                     openMessage('شما قبلا با این شماره ثبت نام کرده اید')
-        //                     setTimeout(function(){
-        //                         closeMessage()
-        //                     }, 2000)
-        //                 } else {
-        //                     counter()
-        //                 }
-        //             },
-        //             error: function(){
-        //                 openMessage('خطا در دریافت اطلاعات')
-        //                 setTimeout(function(){
-        //                     closeMessage()
-        //                 }, 2000)
-        //             }
-        //         })
-        //     }
-        // }
-        // function counter() {
-        //     let phoneNumber = document.getElementById('phoneNumber')
-        //     countDown.classList.add('cursor-no-drop')
-        //     countDown.classList.remove('cursor-pointer')
-        //     countDown.classList.remove('hover:bg-purple-500')
-        //     countDown.classList.add('hover:bg-purple-500/50')
-        //     countDown.classList.remove('bg-purple-500')
-        //     countDown.classList.add('bg-purple-500/50')
-        //     countDown.setAttribute('disabled', true)
-        //     countDown.setAttribute('dir', 'ltr')
-        //     let count = 120
-        //     let result = setInterval(() => {
-        //         let minute = Math.floor(count / 60)
-        //         let seconds = count % 60
-        //         count -= 1
-        //         if (count < 0) {
+         function sendCode(el){
+             el.innerHTML = "<div class='size-8 mx-auto border-2 border-white border-t-[#eb3153]/0 rounded-full animate-spin'></div>"
+             if(phoneNumber.value == '' || password.value == ''){
+                 openMessage('پر کردن همه فیلد ها الزامی است')
+                 setTimeout(function(){
+                     closeMessage()
+                 }, 2000)
+                 el.innerHTML = 'ارسال کد'
+             } else {
 
-        //             $.ajaxSetup({
-        //                 headers: {
-        //                     'X-CSRF-TOKEN': "{{ csrf_token() }}"
-        //                 }
-        //             })
-        //             $.ajax({
-        //                 url: link+'api/removeActivationCode',
-        //                 type: "POST",
-        //                 dataType: "json",
-        //                 data: {
-        //                     'phoneNumber': phoneNumber.value
-        //                 },
-        //                 success: function(data) {
-        //                     console.log(data)
-        //                     countDown.classList.remove('cursor-no-drop')
-        //                     countDown.classList.add('bg-purple-500')
-        //                     countDown.classList.remove('bg-purple-500/50')
-        //                     countDown.classList.add('cursor-pointer')
-        //                     countDown.classList.add('hover:bg-purple-500')
-        //                     countDown.classList.remove('hover:bg-purple-500/50')
-        //                     countDown.removeAttribute('disabled')
-        //                     countDown.removeAttribute('dir')
-        //                     countDown.innerText = "ارسال مجدد"
-        //                 },
-        //                 error: function() {
-        //                     openMessage('خطا در دریافت اطلاعات')
-        //                     setTimeout(function(){
-        //                         closeMessage()
-        //                     }, 2000)
-        //                 }
-        //             })
-        //             clearInterval(result)
-        //         }
-        //         countDown.innerText = minute.toString().padStart(2, "0") + " : " + seconds.toString().padStart(2,
-        //             "0");
-        //     }, 1000)
-        // }
+                 $.ajax({
+                     url: link+"api/sendCode",
+                     type: "POST",
+                     dataType: "json",
+                     data: {
+                         'phoneNumber': phoneNumber.value
+                     },
+                     success: function(response){
+                         el.innerHTML = 'ارسال کد'
+                         console.log('response')
+                         console.log(response)
+                         console.log(el)
+                         if(!response){
+                             openMessage('شما قبلا با این شماره ثبت نام کرده اید')
+                             setTimeout(function(){
+                                 closeMessage()
+                             }, 2000)
+                         } else {
+                             counter()
+                         }
+                     },
+                     error: function(){
+                         openMessage('خطا در دریافت اطلاعات')
+                         setTimeout(function(){
+                             closeMessage()
+                         }, 2000)
+                     }
+                 })
+             }
+         }
+         function counter() {
+             let phoneNumber = document.getElementById('phoneNumber')
+             countDown.classList.add('cursor-no-drop')
+             countDown.classList.remove('cursor-pointer')
+             countDown.classList.remove('hover:bg-purple-500')
+             countDown.classList.add('hover:bg-purple-500/50')
+             countDown.classList.remove('bg-purple-500')
+             countDown.classList.add('bg-purple-500/50')
+             countDown.setAttribute('disabled', true)
+             countDown.setAttribute('dir', 'ltr')
+             let count = 120
+             let result = setInterval(() => {
+                 let minute = Math.floor(count / 60)
+                 let seconds = count % 60
+                 count -= 1
+                 if (count < 0) {
+                     $.ajax({
+                         url: link+'api/removeActivationCode',
+                         type: "POST",
+                         dataType: "json",
+                         data: {
+                             'phoneNumber': phoneNumber.value
+                         },
+                         success: function(data) {
+                             console.log(data)
+                             countDown.classList.remove('cursor-no-drop')
+                             countDown.classList.add('bg-purple-500')
+                             countDown.classList.remove('bg-purple-500/50')
+                             countDown.classList.add('cursor-pointer')
+                             countDown.classList.add('hover:bg-purple-500')
+                             countDown.classList.remove('hover:bg-purple-500/50')
+                             countDown.removeAttribute('disabled')
+                             countDown.removeAttribute('dir')
+                             countDown.innerText = "ارسال مجدد"
+                         },
+                         error: function() {
+                             openMessage('خطا در دریافت اطلاعات')
+                             setTimeout(function(){
+                                 closeMessage()
+                             }, 2000)
+                         }
+                     })
+                     clearInterval(result)
+                 }
+                 countDown.innerText = minute.toString().padStart(2, "0") + " : " + seconds.toString().padStart(2,
+                     "0");
+             }, 1000)
+         }
         function openMessage(content){
             message.innerHTML = ''
             let element = document.createElement('div')
