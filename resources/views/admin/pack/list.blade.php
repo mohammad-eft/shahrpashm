@@ -1,32 +1,50 @@
 @extends('admin.app.dashboard')
-@section('title', 'طبابوک | لیست پک‌ها')
+@section('title', 'شهرپشم | لیست پک‌ها')
 
 @section('content')
-    <style>
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            background-color: #f1f5f9;
-            margin: 0;
-        }
-        .rtl { direction: rtl; }
+<style>
+    body {
+        font-family: 'Vazirmatn', sans-serif;
+        background-color: #f1f5f9;
+        margin: 0;
+    }
 
-        /* اسکرول‌بار سفارشی */
-        .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
-        .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .rtl {
+        direction: rtl;
+    }
 
-        /* Tooltip */
-        .tooltip-wrapper:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-        .tooltip {
-            visibility: hidden;
-            opacity: 0;
-            transition: all .2s;
-        }
-    </style>
+    /* اسکرول‌بار سفارشی */
+    .custom-scroll::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 10px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+
+    /* Tooltip */
+    .tooltip-wrapper:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        opacity: 0;
+        transition: all .2s;
+    }
+</style>
 </head>
 
 <!-- هدر -->
@@ -167,7 +185,7 @@
                         <th class="py-3 px-4 font-medium">تعداد کتاب</th>
                         <th class="py-3 px-4 font-medium">قیمت</th>
                         <th class="py-3 px-4 font-medium">تخفیف</th>
-                
+
                         <th class="py-3 px-4 font-medium">تاریخ ایجاد</th>
                         <th class="py-3 px-4 font-medium w-32">عملیات</th>
                     </tr>
@@ -200,24 +218,24 @@
                         </td>
                         <td class="py-3 px-4">
                             @if ($pack->secondary_price)
-                                <div class="flex flex-col">
-                                    <span class="font-bold text-slate-800 in-fa">{{ $pack->secondary_price }} تومان</span>
-                                    <span class="text-xs text-slate-400 line-through in-fa">{{ $pack->primary_price }} تومان</span>
-                                </div>
+                            <div class="flex flex-col">
+                                <span class="font-bold text-slate-800 in-fa">{{ $pack->secondary_price }} تومان</span>
+                                <span class="text-xs text-slate-400 line-through in-fa">{{ $pack->primary_price }} تومان</span>
+                            </div>
                             @else
-                                <div class="flex flex-col">
-                                    <span class="font-bold text-slate-800 in-fa">{{ $pack->primary_price }} تومان</span>
-                                </div>
+                            <div class="flex flex-col">
+                                <span class="font-bold text-slate-800 in-fa">{{ $pack->primary_price }} تومان</span>
+                            </div>
                             @endif
                         </td>
                         @if($pack->percent)
-                            <td class="py-3 px-4">
-                                <span class="inline-flex items-center bg-rose-50 text-rose-600 text-xs px-2.5 py-1 rounded-full font-medium in-fa" dir="ltr">{{ $pack->percent }} %</span>
-                            </td>
+                        <td class="py-3 px-4">
+                            <span class="inline-flex items-center bg-rose-50 text-rose-600 text-xs px-2.5 py-1 rounded-full font-medium in-fa" dir="ltr">{{ $pack->percent }} %</span>
+                        </td>
                         @else
-                            <td class="py-3 px-4">
-                                <span class="inline-flex items-center bg-rose-50 text-rose-600 text-xs px-2.5 py-1 rounded-full font-medium">-</span>
-                            </td>
+                        <td class="py-3 px-4">
+                            <span class="inline-flex items-center bg-rose-50 text-rose-600 text-xs px-2.5 py-1 rounded-full font-medium">-</span>
+                        </td>
                         @endif
                         <td class="py-3 px-4 text-slate-500 text-xs in-fa">{{ $pack->date }}</td>
                         <td class="py-3 px-4">
@@ -253,70 +271,70 @@
         <div class="md:hidden divide-y divide-slate-100" id="packsMobileList">
             <!-- کارت ۱ -->
             @foreach ($packs as $pack)
-                <div class="p-4">
-                    <div class="flex items-start gap-3">
-                        <input type="checkbox" class="pack-checkbox w-4 h-4 mt-1 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer flex-shrink-0">
-                        <a href="{{ route('pack.single', $pack->id) }}" class="w-14 h-14 rounded-lg bg-slate-100 overflow-hidden flex-shrink-0">
-                            <img src="{{ asset('storage/'.$pack->image) }}" alt="" class="w-full h-full object-cover">
-                        </a>
-                        <div class="flex-1 min-w-0">
-                            <a href="{{ route('pack.single', $pack->id) }}" class="flex justify-between items-start gap-2">
-                                <h3 class="font-bold text-slate-800 text-sm">{{ $pack->title }}</h3>
-                                {{-- <span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0">
+            <div class="p-4">
+                <div class="flex items-start gap-3">
+                    <input type="checkbox" class="pack-checkbox w-4 h-4 mt-1 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer flex-shrink-0">
+                    <a href="{{ route('pack.single', $pack->id) }}" class="w-14 h-14 rounded-lg bg-slate-100 overflow-hidden flex-shrink-0">
+                        <img src="{{ asset('storage/'.$pack->image) }}" alt="" class="w-full h-full object-cover">
+                    </a>
+                    <div class="flex-1 min-w-0">
+                        <a href="{{ route('pack.single', $pack->id) }}" class="flex justify-between items-start gap-2">
+                            <h3 class="font-bold text-slate-800 text-sm">{{ $pack->title }}</h3>
+                            {{-- <span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0">
                                     فعال
                                 </span> --}}
-                            </a>
-                            <a href="{{ route('pack.single', $pack->id) }}" class="text-xs text-slate-500 mt-1 line-clamp-1 in-fa">{{ $pack->summary }}</a>
+                        </a>
+                        <a href="{{ route('pack.single', $pack->id) }}" class="text-xs text-slate-500 mt-1 line-clamp-1 in-fa">{{ $pack->summary }}</a>
 
-                            <div class="flex flex-wrap items-center gap-2 mt-2">
-                                <span class="inline-flex items-center gap-1 text-xs text-slate-600 bg-slate-100 px-2 py-0.5 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                    </svg>
-                                    {{ count($pack->products) }}
-                                </span>
-                                @if ($pack->percent)
-                                    <span class="inline-flex items-center bg-rose-50 text-rose-600 text-xs px-2 py-0.5 rounded-full font-medium in-fa">{{ $pack->percent }} % تخفیف</span>
-                                @else
-                                    <span class="inline-flex items-center bg-rose-50 text-rose-600 text-xs px-2 py-0.5 rounded-full font-medium">-</span>
-                                @endif
-                            </div>
-
-                            <div class="flex items-center justify-between mt-3">
-                                @if($pack->secondary_price)
-                                    <div class="flex flex-col">
-                                        <span class="font-bold text-slate-800 text-sm in-fa">{{ $pack->secondary_price }} تومان</span>
-                                        <span class="text-xs text-slate-400 line-through in-fa">{{ $pack->primary_price }} تومان</span>
-                                    </div>
-                                @else
-                                    <div class="flex flex-col">
-                                        <span class="font-bold text-slate-800 text-sm in-fa">{{ $pack->primary_price }} تومان</span>
-                                    </div>
-                                @endif
-                                <div class="flex items-center gap-1">
-                                    <a href="{{ route('pack.single', $pack->id) }}" class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                    </a>
-                                    <a href="{{ route('pack.edit', $pack->id) }}" class="p-2 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                    </a>
-                                    <a href="{{ route('pack.delete', $pack->id) }}" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <p class="text-xs text-slate-400 mt-2 in-fa">{{ $pack->date }}</p>
+                        <div class="flex flex-wrap items-center gap-2 mt-2">
+                            <span class="inline-flex items-center gap-1 text-xs text-slate-600 bg-slate-100 px-2 py-0.5 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                                {{ count($pack->products) }}
+                            </span>
+                            @if ($pack->percent)
+                            <span class="inline-flex items-center bg-rose-50 text-rose-600 text-xs px-2 py-0.5 rounded-full font-medium in-fa">{{ $pack->percent }} % تخفیف</span>
+                            @else
+                            <span class="inline-flex items-center bg-rose-50 text-rose-600 text-xs px-2 py-0.5 rounded-full font-medium">-</span>
+                            @endif
                         </div>
+
+                        <div class="flex items-center justify-between mt-3">
+                            @if($pack->secondary_price)
+                            <div class="flex flex-col">
+                                <span class="font-bold text-slate-800 text-sm in-fa">{{ $pack->secondary_price }} تومان</span>
+                                <span class="text-xs text-slate-400 line-through in-fa">{{ $pack->primary_price }} تومان</span>
+                            </div>
+                            @else
+                            <div class="flex flex-col">
+                                <span class="font-bold text-slate-800 text-sm in-fa">{{ $pack->primary_price }} تومان</span>
+                            </div>
+                            @endif
+                            <div class="flex items-center gap-1">
+                                <a href="{{ route('pack.single', $pack->id) }}" class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </a>
+                                <a href="{{ route('pack.edit', $pack->id) }}" class="p-2 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                </a>
+                                <a href="{{ route('pack.delete', $pack->id) }}" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-400 mt-2 in-fa">{{ $pack->date }}</p>
                     </div>
                 </div>
+            </div>
             @endforeach
 
         </div>
@@ -394,14 +412,14 @@
     }
 
     if (selectAllCheckbox) {
-        selectAllCheckbox.addEventListener('change', function () {
+        selectAllCheckbox.addEventListener('change', function() {
             packCheckboxes.forEach(cb => cb.checked = this.checked);
             updateBulkBar();
         });
     }
 
     packCheckboxes.forEach(cb => {
-        cb.addEventListener('change', function () {
+        cb.addEventListener('change', function() {
             const allChecked = Array.from(packCheckboxes).every(c => c.checked);
             const anyChecked = Array.from(packCheckboxes).some(c => c.checked);
             if (selectAllCheckbox) {
@@ -456,7 +474,7 @@
     if (sortFilter) sortFilter.addEventListener('change', updateFilterTags);
 
     if (clearFilters) {
-        clearFilters.addEventListener('click', function () {
+        clearFilters.addEventListener('click', function() {
             searchInput.value = '';
             statusFilter.value = '';
             sortFilter.value = 'newest';
