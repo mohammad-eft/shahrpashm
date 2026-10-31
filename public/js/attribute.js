@@ -50,8 +50,8 @@ function remove(el, id) {
     el.parentElement.remove()
 }
 
-let count = document.getElementById('count')
 function calculate(state) {
+    let count = document.getElementById('count')
     if (state == "+") {
         count.value++
     }

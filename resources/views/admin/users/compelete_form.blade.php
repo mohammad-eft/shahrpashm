@@ -1,5 +1,5 @@
 @extends('admin.app.dashboard')
-@section('title', 'طبابوک | ایجاد محصول')
+@section('title', 'شهرپشم | ایجاد محصول')
 @section('content')
 <div class="w-full lg:w-1/2 lg:mx-auto my-6">
     <div class="bg-white rounded-2xl shadow-md p-6">
@@ -19,7 +19,7 @@
             </div>
             <div class="w-full flex flex-col gap-3">
                 <label>ایمیل</label>
-                <input type="email" value="{{ Auth::user()->email }}" 
+                <input type="email" value="{{ Auth::user()->email }}"
                     class="w-full p-[9px] mb-1 rounded-[7px] border border-[#DBDFE9] outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
                     name="email" placeholder="test@example.com">
             </div>
