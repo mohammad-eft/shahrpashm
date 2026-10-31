@@ -8,6 +8,7 @@ use App\Models\carts;
 use App\Models\category;
 use App\Models\orders;
 use App\Models\product;
+use App\Models\role_user;
 use App\Models\User;
 use App\Models\order_status;
 use Hekmatinasser\Verta\Verta;
@@ -51,6 +52,8 @@ class OrdersController extends Controller
         ], ['phoneNumber'], ['name', 'family', 'email', 'nationalCode', 'password']);
 
         $user = User::where('phoneNumber', $phoneNumber)->first();
+
+        role_user::create(['role_id' => 2, 'user_id' => $user->id]);
 
         $address = address::firstOrCreate([
             'user_id' => $user->id,
