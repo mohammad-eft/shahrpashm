@@ -128,6 +128,19 @@ class OrdersController extends Controller
             }
         }
         $setting = homeSetting::document();
+        foreach($orders as $order){
+            $total = 0;
+            foreach($order->carts as $cart){
+                if($cart->product){
+                    if($cart->product->secondary_price){
+                        $total += $cart->product->secondary_price;
+                    } else {
+                        $total += $cart->product->primary_price;
+                    }
+                }
+            }
+            $order->totalPrice = $total;
+        }
         return view('admin.order.index', [
             'categories' => $categories,
             'products' => $products,
@@ -156,6 +169,19 @@ class OrdersController extends Controller
             }
         }
         $setting = homeSetting::document();
+        foreach($orders as $order){
+            $total = 0;
+            foreach($order->carts as $cart){
+                if($cart->product){
+                    if($cart->product->secondary_price){
+                        $total += $cart->product->secondary_price;
+                    } else {
+                        $total += $cart->product->primary_price;
+                    }
+                }
+            }
+            $order->totalPrice = $total;
+        }
         return view('admin.order.userOrders', [
             'categories' => $categories,
             'products' => $products,
