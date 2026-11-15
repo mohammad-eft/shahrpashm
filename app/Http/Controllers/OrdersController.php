@@ -42,14 +42,32 @@ class OrdersController extends Controller
         $products = json_decode($request->products);
         $packs = json_decode($request->packs);
 
-        User::upsert([
-            'name' => $name,
-            'family' => $family,
-            'phoneNumber' => $phoneNumber,
-            'email' => $email,
-            'nationalCode' => $nationalCode,
-            'password' => $password,
-        ], ['phoneNumber'], ['name', 'family', 'email', 'nationalCode', 'password']);
+        // User::upsert([
+        //     'name' => $name,
+        //     'family' => $family,
+        //     'phoneNumber' => $phoneNumber,
+        //     'email' => $email,
+        //     'nationalCode' => $nationalCode,
+        //     'password' => $password,
+        // ], ['phoneNumber'], ['name', 'family', 'email', 'nationalCode', 'password']);
+          if($password){
+            User::upsert([
+                'name' => $name,
+                'family' => $family,
+                'phoneNumber' => $phoneNumber,
+                'email' => $email,
+                'nationalCode' => $nationalCode,
+                'password' => $password,
+            ], ['phoneNumber'], ['name', 'family', 'email', 'nationalCode', 'password']);
+        } else {
+            User::upsert([
+                'name' => $name,
+                'family' => $family,
+                'phoneNumber' => $phoneNumber,
+                'email' => $email,
+                'nationalCode' => $nationalCode,
+            ], ['phoneNumber'], ['name', 'family', 'email', 'nationalCode', 'password']);
+        }
 
         $user = User::where('phoneNumber', $phoneNumber)->first();
 

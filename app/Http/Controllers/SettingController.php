@@ -210,7 +210,9 @@ class SettingController extends Controller
         $footerAddress = setting::where('meta_key', 'footerAddress')->first();
         $footerInstagram = setting::where('meta_key', 'footerInstagram')->first();
         $footerTelegram = setting::where('meta_key', 'footerTelegram')->first();
-        $footerEmailSocial = setting::where('meta_key', 'footerEmailSocial')->first();
+        $footerRubika = setting::where('meta_key', 'footerRubika')->first();
+        $footerBale = setting::where('meta_key', 'footerBale')->first();
+        $footerEitaa = setting::where('meta_key', 'footerEitaa')->first();
         $footerCopyright = setting::where('meta_key', 'footerCopyright')->first();
         $footerDesignerText = setting::where('meta_key', 'footerDesignerText')->first();
         $footerDesignerPhone = setting::where('meta_key', 'footerDesignerPhone')->first();
@@ -231,7 +233,9 @@ class SettingController extends Controller
             'footerAddress'=>$footerAddress,
             'footerInstagram'=>$footerInstagram,
             'footerTelegram'=>$footerTelegram,
-            'footerEmailSocial'=>$footerEmailSocial,
+            'footerRubika'=> $footerRubika,
+            'footerBale'=> $footerBale,
+            'footerEitaa'=> $footerEitaa,
             'footerCopyright'=>$footerCopyright,
             'footerDesignerText'=>$footerDesignerText,
             'footerDesignerPhone'=>$footerDesignerPhone,
@@ -304,6 +308,7 @@ class SettingController extends Controller
             }
         }
         $setting = homeSetting::all();
+        // dd($setting['footerTelegram']);
         $packs = pack::all();
         return view('home', [
             'setting'=>$setting, 
