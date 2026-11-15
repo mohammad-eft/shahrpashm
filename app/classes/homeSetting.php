@@ -70,8 +70,9 @@ class homeSetting{
         $footerAddress = setting::where('meta_key', 'footerAddress')->first();
         $footerInstagram = setting::where('meta_key', 'footerInstagram')->first();
         $footerTelegram = setting::where('meta_key', 'footerTelegram')->first();
-        $footerEmailSocial = setting::where('meta_key', 'footerEmailSocial')->first();
-        $footerCopyright = setting::where('meta_key', 'footerCopyright')->first();
+        $footerRubika = setting::where('meta_key', 'footerRubika')->first();
+        $footerBale = setting::where('meta_key', 'footerBale')->first();
+        $footerEitaa = setting::where('meta_key', 'footerEitaa')->first();
         $footerDesignerText = setting::where('meta_key', 'footerDesignerText')->first();
         $footerDesignerPhone = setting::where('meta_key', 'footerDesignerPhone')->first();
         $footerDesignerUrl = setting::where('meta_key', 'footerDesignerUrl')->first();
@@ -147,8 +148,9 @@ class homeSetting{
         $setting['footerAddress'] = $footerAddress ? $footerAddress->meta_value : null;
         $setting['footerInstagram'] = $footerInstagram ? $footerInstagram->meta_value : null;
         $setting['footerTelegram'] = $footerTelegram ? $footerTelegram->meta_value : null;
-        $setting['footerEmailSocial'] = $footerEmailSocial ? $footerEmailSocial->meta_value : null;
-        $setting['footerCopyright'] = $footerCopyright ? $footerCopyright->meta_value : null;
+        $setting['footerRubika'] = $footerRubika ? $footerRubika->meta_value : null;
+        $setting['footerBale'] = $footerBale ? $footerBale->meta_value : null;
+        $setting['footerEitaa'] = $footerEitaa ? $footerEitaa->meta_value : null;
         $setting['footerDesignerText'] = $footerDesignerText ? $footerDesignerText->meta_value : null;
         $setting['footerDesignerPhone'] = $footerDesignerPhone ? $footerDesignerPhone->meta_value : null;
         $setting['footerDesignerUrl'] = $footerDesignerUrl ? $footerDesignerUrl->meta_value : null;
