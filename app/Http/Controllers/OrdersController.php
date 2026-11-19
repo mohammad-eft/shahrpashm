@@ -99,6 +99,25 @@ class OrdersController extends Controller
 
         $order_code = '100' . $order->id;
         orders::where('id', $order->id)->update(['order_code' => $order_code]);
+        $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Accept: application/json',
+                'Api-Key: osgFftrhVdgwBgUCTgKpESk2mNzHBoIVfCm7cFIj6CMZZPcYSf',
+                'Content-Type: application/json'
+            ]);
+            $payload = [
+                'code' => 'y07pqlYB1J',
+                'attributes' => [
+                    'order_code' => $order_code,
+                ],
+                'recipient' => $phoneNumber,
+                'line_number' => '50002178584000',
+                'number_format' => 'english'
+            ];
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+            $response = curl_exec($ch);
 
         if ($products) {
             foreach ($products as $product) {
@@ -225,41 +244,129 @@ class OrdersController extends Controller
         carts::where('user_id', $user->id)->whereNull('order_id')->delete();
         return response()->json('ok');
     }
-    public function acceptOrder(Request $request)
-    {
-        $order = orders::with(['state', 'carts.product'])->find($request->order_id);
+    
+public function acceptOrder(Request $request)
+{
+    $order = orders::with(['state', 'carts.product'])->find($request->order_id);
 
-        // if (!$order) {
-        //     return response()->json(['error' => 'سفارش یافت نشد'], 404);
-        // }
-
-        // return response()->json($order);
-
-        if ($request->status == 1) {
-            $order->order_status_id = 2;
-        }
-        if ($request->status == 2) {
-            $order->order_status_id = 3;
-        }
-        if ($request->status == 3) {
-            $order->order_status_id = 4;
-        }
-        // if ($request->status == 4) {
-        //     $order->order_status_id = 5;
-        // }
-        // if ($request->status == 5) {
-        //     $order->order_status_id = 6;
-        // }
-
-        $order->save();
-
-        // Log::info($order);
-
-        $order->load('state');
-
-
-        // return response()->json([$order, $request->all()]);
-        return response()->json($order);
+    if ($request->status == 1) {
+        $order->order_status_id = 2;
     }
+    if ($request->status == 2) {
+        $order->order_status_id = 3;
+    }
+    if ($request->status == 3) {
+        $order->order_status_id = 4;
+    }
+
+    $order->save();
+
+    $phoneNumber = $order->phone;
+    $order_code = $order->id;
+
+    if ($request->status == 1) {
+
+        $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+            'Api-Key: osgFftrhVdgwBgUCTgKpESk2mNzHBoIVfCm7cFIj6CMZZPcYSf',
+            'Content-Type: application/json'
+        ]);
+        $payload = [
+            'code' => 'kQLgTwMCCg',
+            'attributes' => [
+                'order_code' => $order_code,
+            ],
+            'recipient' => $phoneNumber,
+            'line_number' => '50002178584000',
+            'number_format' => 'english'
+        ];
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+        $response = curl_exec($ch);
+    }
+
+    if ($request->status == 2) {
+
+        $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+            'Api-Key: osgFftrhVdgwBgUCTgKpESk2mNzHBoIVfCm7cFIj6CMZZPcYSf',
+            'Content-Type: application/json'
+        ]);
+        $payload = [
+            'code' => '6vLpqeJOLV',
+            'attributes' => [
+                'order_code' => $order_code,
+            ],
+            'recipient' => $phoneNumber,
+            'line_number' => '50002178584000',
+            'number_format' => 'english'
+        ];
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+        $response = curl_exec($ch);
+    }
+
+    if ($request->status == 3) {
+
+        $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+            'Api-Key: osgFftrhVdgwBgUCTgKpESk2mNzHBoIVfCm7cFIj6CMZZPcYSf',
+            'Content-Type: application/json'
+        ]);
+        $payload = [
+            'code' => 'w7QcIFg9pC',
+            'attributes' => [
+                'order_code' => $order_code,
+            ],
+            'recipient' => $phoneNumber,
+            'line_number' => '50002178584000',
+            'number_format' => 'english'
+        ];
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+        $response = curl_exec($ch);
+    }
+
+    $order->load('state');
+
+    return response()->json($order);
+}
+
+    // public function acceptOrder(Request $request)
+    // {
+    //     $order = orders::with(['state', 'carts.product'])->find($request->order_id);
+
+    //     // if (!$order) {
+    //     //     return response()->json(['error' => 'سفارش یافت نشد'], 404);
+    //     // }
+
+    //     // return response()->json($order);
+
+    //     if ($request->status == 1) {
+    //         $order->order_status_id = 2;
+    //     }
+    //     if ($request->status == 2) {
+    //         $order->order_status_id = 3;
+    //     }
+    //     if ($request->status == 3) {
+    //         $order->order_status_id = 4;
+    //     }
+      
+    //     $order->save();
+
+    //     // Log::info($order);
+
+    //     $order->load('state');
+
+
+    //     // return response()->json([$order, $request->all()]);
+    //     return response()->json($order);
+    // }
    
 }

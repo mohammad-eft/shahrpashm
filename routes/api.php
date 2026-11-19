@@ -19,6 +19,7 @@ Route::post('/checkCode', [UserController::class, 'checkCode']);
 Route::post('/checkPassKey', [UserController::class, 'checkPassKey']);
 Route::post('/sendActivationCode', [UserController::class, 'sendActivationCode']);
 Route::post('/getFilters', [SearchController::class, 'getFilters']);
+Route::post('/checkAuth', [UserController::class, 'checkAuth']);
 
 Route::post('/cart/store', [CartsController::class, 'store']);
 Route::post('/cart/pack/store', [CartsController::class, 'packStore']);

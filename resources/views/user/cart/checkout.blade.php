@@ -206,8 +206,9 @@
                                                 <img src="{{ asset('img/bank.png') }}" class="size-10 rounded-full" alt="">
                                             </span>
                                         </div>
-                                        <span class="text-sm font-semibold tracking-wide text-white/90">بانک مهر
-                                            ایران</span>
+                                        <span class="text-sm font-semibold tracking-wide text-white/90">
+                                            بانک ملی
+                                        </span>
                                     </div>
                                     <div
                                         class="w-10 h-8 rounded-md bg-gradient-to-br from-amber-200 to-amber-400/80 border border-amber-300/50 shadow-inner flex items-center justify-center">
@@ -230,10 +231,10 @@
                                             کارت</p>
                                         <div
                                             class="card-number text-base sm:text-lg md:text-xl font-medium text-white/95 drop-shadow-sm">
-                                            6063 7311 2068 4353
+                                            6037 9982 6954 0653
                                         </div>
                                     </div>
-                                    <svg class="w-6 h-6 cursor-pointer text-white" onclick="copyText('6063 7311 2068 4353')" aria-hidden="true"
+                                    <svg class="w-6 h-6 cursor-pointer text-white" onclick="copyText('6037998269540653')" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
@@ -251,10 +252,10 @@
                                         <div
                                             class="sheba-number flex items-center gap-1 text-[11px] sm:text-sm md:text-base font-medium text-white/95">
                                             <span class="text-white/70 font-sans">IR</span>
-                                            <span class="text-sm">67 0600 2002 7001 1408 8140 01</span>
+                                            <span class="text-sm">80 0170 0000 0011 1567 7000 04</span>
                                         </div>
                                     </div>
-                                    <svg class="w-6 h-6 cursor-pointer text-white" onclick="copyText('67 0600 2002 7001 1408 8140 01')" aria-hidden="true"
+                                    <svg class="w-6 h-6 cursor-pointer text-white" onclick="copyText('800170000000111567700004')" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
@@ -268,14 +269,11 @@
                                     <div>
                                         <p class="text-[9px] sm:text-[10px] text-white/50 uppercase tracking-wider">به نام
                                         </p>
-                                        <p class="text-sm sm:text-base font-medium text-white/90 tracking-wide">عباس ملکی
+                                        <p class="text-sm sm:text-base font-medium text-white/90 tracking-wide">
+                                            فریده میرغفاری مرزآباد 
                                         </p>
                                     </div>
-                                    <div class="text-left">
-                                        <p class="text-[9px] sm:text-[10px] text-white/50 uppercase tracking-wider">تاریخ
-                                            انقضا</p>
-                                        <p class="text-sm sm:text-base font-medium text-white/90 tracking-wider">۱۲/۲۸</p>
-                                    </div>
+                            
                                     <div class="flex items-center gap-1 opacity-80">
                                         <div
                                             class="w-6 h-6 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/20">
