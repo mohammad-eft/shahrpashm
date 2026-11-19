@@ -251,22 +251,7 @@ public function acceptOrder(Request $request)
 
     if ($request->status == 1) {
         $order->order_status_id = 2;
-    }
-    if ($request->status == 2) {
-        $order->order_status_id = 3;
-    }
-    if ($request->status == 3) {
-        $order->order_status_id = 4;
-    }
-
-    $order->save();
-
-    $phoneNumber = $order->phone;
-    $order_code = $order->id;
-
-    if ($request->status == 1) {
-
-        $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
+         $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -286,9 +271,8 @@ public function acceptOrder(Request $request)
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
         $response = curl_exec($ch);
     }
-
     if ($request->status == 2) {
-
+        $order->order_status_id = 3;
         $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -309,10 +293,9 @@ public function acceptOrder(Request $request)
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
         $response = curl_exec($ch);
     }
-
     if ($request->status == 3) {
-
-        $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
+        $order->order_status_id = 4;
+               $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -332,6 +315,12 @@ public function acceptOrder(Request $request)
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
         $response = curl_exec($ch);
     }
+
+    $order->save();
+
+    $phoneNumber = $order->phone;
+    $order_code = $order->id;
+
 
     $order->load('state');
 
