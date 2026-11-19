@@ -45,7 +45,7 @@
                     <div class="w-full flex flex-col gap-3 mt-5">
                         <label for="category_ids" class="mb-2 flex flex-row items-center">
                             <span>دسته بندی :</span>
-                            <span class="text-rose-500">*</span>
+                            {{-- <span class="text-rose-500">*</span> --}}
                         </label>
                         <select name="category_ids[]" id="category_ids"
                             class="w-full bg-[#F9F9F9] py-3 pr-5 rounded-[10px]" multiple size="1">

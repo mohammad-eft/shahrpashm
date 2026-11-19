@@ -28,15 +28,14 @@ class ProductController extends Controller
                 'title' => ['required'],
                 'mainImage' => ['max:100'],
                 'gallery.*' => ['max:500'],
-                'category_ids' => ['required'],
             ],
             [
                 'title.required' => 'پر کردن این فیلد الزامی است.',
                 'mainImage.max' => 'حجم فایل نباید بیشتر از 100 کیلوبایت باشد.',
                 'gallery.*.max' => 'حجم کل فایل ها نباید بیشتر از 500 کیلوبایت باشد.',
-                'category_ids.required' => 'پر کردن این فیلد الزامی است.',
             ]
         );
+
         $product = product::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -46,46 +45,69 @@ class ProductController extends Controller
             'count' => $request->count,
             'show_in_home' => $request->show_in_home ?? 0,
         ]);
-        if (isset($request['category_ids'])) {
+
+        // ثبت دسته بندی محصول
+        if ($request->filled('category_ids')) {
             foreach ($request['category_ids'] as $cat_id) {
                 category_product::create([
-                    'product_id' => $product['id'],
+                    'product_id' => $product->id,
                     'category_id' => $cat_id
                 ]);
             }
+        } else {
+            $uncategorized = category::where('title', 'بدون دسته بندی')->first();
+
+            if ($uncategorized) {
+                category_product::create([
+                    'product_id' => $product->id,
+                    'category_id' => $uncategorized->id
+                ]);
+            }
         }
+
+        // ثبت ویژگی های محصول
         if (isset($request['attributes'])) {
             foreach ($request['attributes']['attribute_key'] as $index => $key) {
                 product_attributes::create([
-                    'product_id' => $product['id'],
+                    'product_id' => $product->id,
                     'attribute_key' => $key,
                     'attribute_value' => $request['attributes']['attribute_value'][$index]
                 ]);
             }
         }
+
+        // ثبت تصویر اصلی
         if (isset($request['mainImage'])) {
             $img_type = $request->mainImage->getClientOriginalExtension();
             $img_path = $request->mainImage->store('productImgs', 'public');
+
             product_media::create([
-                'product_id' => $product['id'],
+                'product_id' => $product->id,
                 'media_type' => $img_type,
                 'media_path' => $img_path,
                 'is_main' => 1
             ]);
         }
+
+        // ثبت تصاویر گالری
         if (isset($request['gallery'])) {
             foreach ($request['gallery'] as $file) {
                 $img_type = $file->getClientOriginalExtension();
                 $img_path = $file->store('productImgs', 'public');
+
                 product_media::create([
-                    'product_id' => $product['id'],
+                    'product_id' => $product->id,
                     'media_type' => $img_type,
                     'media_path' => $img_path,
                     'is_main' => 0
                 ]);
             }
         }
-        return to_route('product.create')->with('message', ' محصول ' . $product['title'] . ' ایجاد شد ');
+
+        return to_route('product.create')->with(
+            'message',
+            ' محصول ' . $product['title'] . ' ایجاد شد '
+        );
     }
     public function adminIndex()
     {
@@ -125,16 +147,16 @@ class ProductController extends Controller
             [
                 'title' => ['required'],
                 'gallery.*' => ['max:500'],
-                'category_ids' => ['required'],
             ],
             [
                 'title.required' => 'پر کردن فیلد عنوان الزامی است.',
                 'gallery.*.max' => 'حجم کل فایل ها نباید بیشتر از 500 کیلوبایت باشد.',
-                'category_ids.required' => 'حداقل یک دسته بندی برای محصول انتخاب کنید.',
             ]
         );
+
         $product = product::find($request['product_id']);
         $title = $product->title;
+
         $product->title = $request['title'];
         $product->description = $request['description'];
         $product->summary = $request['summary'];
@@ -142,23 +164,35 @@ class ProductController extends Controller
         $product->secondary_price = $request['secondary_price'];
         $product->count = $request['count'];
         $product->show_in_home = $request['show_in_home'] ?? 0;
-        category_product::where('product_id', $product['id'])->delete();
-        foreach ($request['category_ids'] as $catId) {
-            category_product::create([
-                'product_id' => $product['id'],
-                'category_id' => $catId,
-            ]);
+
+        // بروزرسانی دسته بندی فقط در صورت انتخاب دسته بندی جدید
+        if ($request->filled('category_ids')) {
+
+            category_product::where('product_id', $product['id'])->delete();
+
+            foreach ($request['category_ids'] as $catId) {
+                category_product::create([
+                    'product_id' => $product['id'],
+                    'category_id' => $catId,
+                ]);
+            }
         }
+
+        // حذف ویژگی های انتخاب شده
         if (isset($request['removedAttrs'])) {
             foreach ($request['removedAttrs'] as $attrId) {
                 product_attributes::find($attrId)->delete();
             }
         }
+
+        // حذف تصاویر انتخاب شده
         if (isset($request['removedImgs'])) {
+
             if (isset($request['removedImgs']['mainImg'])) {
                 Storage::disk('public')->delete($request['removedImgs']['mainImg']);
                 product_media::where('media_path', $request['removedImgs']['mainImg'])->delete();
             }
+
             if (isset($request['removedImgs']['gallery'])) {
                 foreach ($request['removedImgs']['gallery'] as $media) {
                     Storage::disk('public')->delete($media);
@@ -166,15 +200,20 @@ class ProductController extends Controller
                 }
             }
         }
+
+        // بروزرسانی تصویر اصلی
         if (isset($request['mainImage'])) {
+
             foreach ($product->media as $media) {
                 if ($media['is_main']) {
                     Storage::disk('public')->delete($media['media_path']);
                     product_media::where('media_path', $media['media_path'])->delete();
                 }
             }
+
             $newImgType = $request->mainImage->getClientOriginalExtension();
             $newImgPath = $request->mainImage->store('productImgs', 'public');
+
             product_media::create([
                 'product_id' => $product['id'],
                 'media_type' => $newImgType,
@@ -182,10 +221,15 @@ class ProductController extends Controller
                 'is_main' => 1
             ]);
         }
+
+        // افزودن تصاویر گالری
         if (isset($request['gallery'])) {
+
             foreach ($request['gallery'] as $file) {
+
                 $newImgType = $file->getClientOriginalExtension();
                 $newImgPath = $file->store('productImgs', 'public');
+
                 product_media::create([
                     'product_id' => $product['id'],
                     'media_type' => $newImgType,
@@ -194,17 +238,27 @@ class ProductController extends Controller
                 ]);
             }
         }
+
+        // بروزرسانی و افزودن ویژگی ها
         if (isset($request['attributes'])) {
+
             if (isset($request['attributes']['oldAttrs'])) {
+
                 foreach ($request['attributes']['oldAttrs']['attribute_key'] as $id => $key) {
+
                     $oldProAtt = product_attributes::find($id);
+
                     $oldProAtt->attribute_key = $key;
                     $oldProAtt->attribute_value = $request['attributes']['oldAttrs']['attribute_value'][$id];
+
                     $oldProAtt->save();
                 }
             }
+
             if (isset($request['attributes']['newAttrs'])) {
+
                 foreach ($request['attributes']['newAttrs']['attribute_key'] as $index => $key) {
+
                     product_attributes::create([
                         'product_id' => $product['id'],
                         'attribute_key' => $key,
@@ -213,8 +267,13 @@ class ProductController extends Controller
                 }
             }
         }
+
         $product->save();
-        return to_route('product.adminIndex')->with('message', ' محصول ' . $title . ' به روز رسانی شد. ');
+
+        return to_route('product.adminIndex')->with(
+            'message',
+            ' محصول ' . $title . ' به روز رسانی شد. '
+        );
     }
     public function delete($id)
     {
