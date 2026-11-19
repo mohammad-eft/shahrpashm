@@ -268,6 +268,7 @@
 
     <script>
         let link = "{{ url('/') }}/"
+        let api = "{{ url('/api') }}/"
         let message = document.getElementById('message')
         let phoneNumber = document.getElementById('phoneNumber')
         let password = document.getElementById('password')
@@ -281,33 +282,91 @@
                 document.getElementById('loader').classList.remove('invisible', 'opacity-0')
             }
         }
-        function checkAuth(e) {
+        
+function notify(content) {
+    message.querySelector('.message-content').innerHTML = content;
+    showMessage('open');
+
+    setTimeout(() => {
+        showMessage('close');
+    }, 2500);
+}
+
+
+        // function checkAuth(e) {
+        //     e.preventDefault()
+        //     if(phoneNumber.value == '' || password.value == '' || code.value == ''){
+        //         openMessage('پر کردن همه فیلد ها الزامی است')
+        //         setTimeout(function(){
+        //             closeMessage()
+        //         }, 2000)
+
+        //     } else {
+        //         loader('open')
+        //         $.ajaxSetup({
+        //             headers: {
+        //                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        //             }
+        //         })
+        //         $.ajax({
+        //             url: "{{ route('checkAuth') }}",
+        //             type: "POST",
+        //             dataType: "json",
+        //             data: {
+        //                 'phoneNumber': phoneNumber.value,
+        //                 'code': code.value
+        //             },
+                    // success: function(data){
+                    //     console.log(data)
+                    //     loader('close')
+                    //     if(!data.flag){
+                    //         // openMessage('کد وارد شده نامعتبر')
+                    //         openMessage('کد وارد شده نامعتبر')
+                    //         setTimeout(function(){
+                    //             closeMessage()
+                    //         }, 2000)
+                    //     } else {
+                    //         if (data.user) {
+                    //             openMessage('شما قبلا با این شماره ثبت نام کرده اید')
+                    //             setTimeout(function(){
+                    //                 closeMessage()
+                    //             }, 2000)
+                    //             location.assign("{{ route('login') }}")
+                    //         } else {
+                    //             signupForm.submit()
+                    //         }
+                    //     }
+                    // },
+        //             error: function(){
+        //                 openMessage('خطا در دریافت اطلاعات')
+        //                 setTimeout(function(){
+        //                     closeMessage()
+        //                 }, 2000)
+        //             }
+        //         })
+        //     }
+        // }
+         function checkAuth(e) {
             e.preventDefault()
             if(phoneNumber.value == '' || password.value == '' || code.value == ''){
                 openMessage('پر کردن همه فیلد ها الزامی است')
                 setTimeout(function(){
                     closeMessage()
                 }, 2000)
-
             } else {
                 loader('open')
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                    }
-                })
+               
                 $.ajax({
-                    url: "{{ route('checkAuth') }}",
+                    url: api+"checkAuth",
                     type: "POST",
                     dataType: "json",
                     data: {
                         'phoneNumber': phoneNumber.value,
-                        'code': code.value
+                        // 'code': code.value
                     },
                     success: function(data){
-                        console.log(data)
                         loader('close')
-                        if(!data.flag){
+                        if(data.flag){
                             // openMessage('کد وارد شده نامعتبر')
                             openMessage('کد وارد شده نامعتبر')
                             setTimeout(function(){

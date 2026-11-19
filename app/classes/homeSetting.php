@@ -187,6 +187,9 @@ class homeSetting{
         $footerCategories = setting::where('meta_key', 'footerCategories')->first();
         $topBanner = setting::where('meta_key', 'topBanner')->first();
         $topBannerLink = setting::where('meta_key', 'topBannerLink')->first();
+        $footerRubika = setting::where('meta_key', 'footerRubika')->first();
+        $footerBale = setting::where('meta_key', 'footerBale')->first();
+        $footerEitaa = setting::where('meta_key', 'footerEitaa')->first();
 
         $setting['logo'] = $logo ? $logo->meta_value : null;
         $setting['topBanner']=$topBanner ? $topBanner->meta_value : null;
@@ -208,6 +211,9 @@ class homeSetting{
         $setting['footerDesignerUrl'] = $footerDesignerUrl ? $footerDesignerUrl->meta_value : null;
         $setting['footerServices'] = $footerServices ? json_decode($footerServices->meta_value) : null;
         $setting['footerCategories'] = $footerCategories ? json_decode($footerCategories->meta_value) : null;
+        $setting['footerRubika'] = $footerRubika ? $footerRubika->meta_value : null;
+        $setting['footerBale'] = $footerBale ? $footerBale->meta_value : null;
+        $setting['footerEitaa'] = $footerEitaa ? $footerEitaa->meta_value : null;
         return $setting;
     }
 }
