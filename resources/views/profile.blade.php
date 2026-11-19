@@ -29,7 +29,7 @@
                         </span>
                     </div>
                 </div>
-
+                
                 <!-- User Info -->
                 <div class="flex-1 text-center md:text-right">
                     <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">
@@ -39,9 +39,10 @@
                         کاربر عادی
                         @endif
                     </h2>
+           
                     <div class="flex flex-wrap justify-center md:justify-start gap-2">
                         <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
-                            {{ $user->role[0]->title ?? 'کاربر عادی' }}
+                            {{ $user->roles[0]->fa_title ?? 'کاربر عادی' }}
                         </span>
                         @if($user->phoneNumber)
                         <span class="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-sm flex items-center gap-1">
