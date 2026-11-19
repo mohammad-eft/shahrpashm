@@ -247,8 +247,10 @@ class OrdersController extends Controller
     
 public function acceptOrder(Request $request)
 {
+      return response()->json($request->all());
+    
     $order = orders::with(['state', 'carts.product'])->find($request->order_id);
-
+    
     if ($request->status == 1) {
         $order->order_status_id = 2;
          $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
@@ -324,7 +326,7 @@ public function acceptOrder(Request $request)
 
     $order->load('state');
 
-    return response()->json($order);
+
 }
 
     // public function acceptOrder(Request $request)
