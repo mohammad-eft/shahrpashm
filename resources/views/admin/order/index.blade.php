@@ -533,7 +533,7 @@ $i++;
                 'phoneNumber': phoneNumber
             },
             success: function(data) {
-                console.log(data.order)
+               
                 if (el.closest('.orders').querySelector('.order-status') && el.closest('.orders').querySelector('.order-show-btn') && el.closest('.orders').querySelector('.order-accept-btn')) {
                     el.closest('.orders').querySelector('.order-status').classList =
                         `px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-[${data.order.state.color}] order-status`

@@ -15,6 +15,7 @@ use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Log;
 
 class OrdersController extends Controller
 {
@@ -37,8 +38,8 @@ class OrdersController extends Controller
         $nationalCode = $request->input('nationalCode');
         $descriptoin = $request->input('descriptoin');
         // $onlinePayment = $request->input('onlinePayment');
-        $pass = $request->input('password');
-        $password = Hash::make($pass);
+        $pass = $request->input('password', null);
+        $password = $pass ? Hash::make($pass) : null;
         $products = json_decode($request->products);
         $packs = json_decode($request->packs);
 
@@ -50,7 +51,25 @@ class OrdersController extends Controller
         //     'nationalCode' => $nationalCode,
         //     'password' => $password,
         // ], ['phoneNumber'], ['name', 'family', 'email', 'nationalCode', 'password']);
-          if($password){
+        //   if($password){
+        //     User::upsert([
+        //         'name' => $name,
+        //         'family' => $family,
+        //         'phoneNumber' => $phoneNumber,
+        //         'email' => $email,
+        //         'nationalCode' => $nationalCode,
+        //         'password' => $password,
+        //     ], ['phoneNumber'], ['name', 'family', 'email', 'nationalCode', 'password']);
+        // } else {
+        //     User::upsert([
+        //         'name' => $name,
+        //         'family' => $family,
+        //         'phoneNumber' => $phoneNumber,
+        //         'email' => $email,
+        //         'nationalCode' => $nationalCode,
+        //     ], ['phoneNumber'], ['name', 'family', 'email', 'nationalCode', 'password']);
+        // }
+        if ($password) {
             User::upsert([
                 'name' => $name,
                 'family' => $family,
@@ -66,9 +85,8 @@ class OrdersController extends Controller
                 'phoneNumber' => $phoneNumber,
                 'email' => $email,
                 'nationalCode' => $nationalCode,
-            ], ['phoneNumber'], ['name', 'family', 'email', 'nationalCode', 'password']);
+            ], ['phoneNumber'], ['name', 'family', 'email', 'nationalCode']);
         }
-
         $user = User::where('phoneNumber', $phoneNumber)->first();
 
         role_user::create(['role_id' => 2, 'user_id' => $user->id]);
@@ -348,7 +366,7 @@ class OrdersController extends Controller
             $order->order_status_id = 4;
         }
         if ($request->status == 1) {
-
+            Log::info('مشتری عزیز، سفارش شماره تأیید شد و در حال آماده‌سازی است.');
             $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -372,7 +390,7 @@ class OrdersController extends Controller
         }
 
         if ($request->status == 2) {
-
+            Log::info('مشتری عزیز، سفارش شماره  آماده ارسال است.');
             $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -394,9 +412,8 @@ class OrdersController extends Controller
             $response = curl_exec($ch);
             curl_close($ch);
         }
-
         if ($request->status == 3) {
-
+            Log::info('مشتری عزیز، سفارش شماره  تحویل داده شد.از خرید شما سپاسگزاریم.');
             $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -420,14 +437,13 @@ class OrdersController extends Controller
         }
         $order->save();
 
-        $phoneNumber = $order->phone;
         $order_code = $order->id;
 
       
 
         $order->load('state');
 
-        return response()->json(['order' => $order, 'phoneNumber' => $phoneNumber]);
+        return response()->json(['order' => $order, 'phoneNumber' => $request->phoneNumber]);
     }
 
 

@@ -11,7 +11,6 @@ let popupFlag = false
 function addToCart(btn) {
     let container = btn.closest('.addToCartBtns')
     if (!container) return
-
     let productId = container.dataset.productId
     if (!productId) return
     cartLink.classList.remove('hidden')
@@ -26,11 +25,10 @@ function addToCart(btn) {
             if (orderBasket && orderBasket.children[1]) {
                 let quan = parseInt(orderBasket.children[1].innerText) || 0
                 quan += 1
-                orderBasket.children[1].innerText = quan
+                totalCartQuantity++
+                orderBasket.children[1].innerText = totalCartQuantity
             }
-
             response.quantity = 1
-
             document.querySelectorAll('.addToCartBtns').forEach(button => {
                 if (button.dataset.productId != productId) return
 
@@ -56,8 +54,6 @@ function addToCart(btn) {
                     button.children[0].children[0].classList.add('cursor-pointer')
                 }
             })
-
-
             let products = []
             if (localStorage.getItem('products')) {
                 try {
@@ -66,7 +62,6 @@ function addToCart(btn) {
                     products = []
                 }
             }
-
             let existing = products.find(pro => String(pro.id) === String(response.id))
             if (existing) {
                 existing.quantity = (existing.quantity || 1) + 1
@@ -111,6 +106,7 @@ function setCount(btn) {
     if (btn.dataset.state === '+') {
         btn.parentElement.children[1].value++
         product.quantity++
+        totalCartQuantity++
         if (totalPriceEl) {
             let currentPrice = parseInt(totalPriceEl.innerText) || 0
             totalPriceEl.innerText = currentPrice + finalPrice
@@ -120,6 +116,7 @@ function setCount(btn) {
     if (btn.dataset.state === '-') {
         btn.parentElement.children[1].value--
         product.quantity--
+        totalCartQuantity--
         if (totalPriceEl) {
             let currentPrice = parseInt(totalPriceEl.innerText) || 0
             totalPriceEl.innerText = currentPrice - finalPrice
@@ -149,9 +146,9 @@ function setCount(btn) {
     localStorage.setItem('products', JSON.stringify(localProducts))
 
     if (btn.parentElement.children[1].value == 0) {
-        if (orderBasket && orderBasket.children[1]) {
-            orderBasket.children[1].innerText = Math.max(0, (parseInt(orderBasket.children[1].innerText) || 1) - 1)
-        }
+        // if (orderBasket && orderBasket.children[1]) {
+        //     orderBasket.children[1].innerText = Math.max(0, (parseInt(orderBasket.children[1].innerText) || 1) - 1)
+        // }
 
         localProducts = localProducts.filter(cart => String(cart.id) !== String(productId))
         localStorage.setItem('products', JSON.stringify(localProducts))
@@ -213,6 +210,7 @@ function setCount(btn) {
             })
         }
     }
+    orderBasket.children[1].innerText = totalCartQuantity
 }
 
 function addPackToCart(btn) {
@@ -230,9 +228,11 @@ function addPackToCart(btn) {
         type: "GET",
         dataType: "json",
         success: function (response) {
-            if (orderBasket && orderBasket.children[1]) {
-                orderBasket.children[1].innerText = (parseInt(orderBasket.children[1].innerText) || 0) + 1
-            }
+            // if (orderBasket && orderBasket.children[1]) {
+            //     orderBasket.children[1].innerText = (parseInt(orderBasket.children[1].innerText) || 0) + 1
+            // }
+            totalCartQuantity++
+            orderBasket.children[1].innerText = totalCartQuantity
 
             response.quantity = 1
 
@@ -306,6 +306,7 @@ function setPackCount(btn) {
     if (btn.dataset.state === '+') {
         btn.parentElement.children[1].value++
         pack.quantity++
+        totalCartQuantity++
         if (totalPriceEl) {
             let currentPrice = parseInt(totalPriceEl.innerText) || 0
             totalPriceEl.innerText = currentPrice + finalPrice
@@ -315,13 +316,14 @@ function setPackCount(btn) {
     if (btn.dataset.state === '-') {
         btn.parentElement.children[1].value--
         pack.quantity--
+        totalCartQuantity--
         if (totalPriceEl) {
             let currentPrice = parseInt(totalPriceEl.innerText) || 0
             totalPriceEl.innerText = currentPrice - finalPrice
         }
     }
 
-    if (product.quantity == product.count) {
+    if (pack.quantity == pack.count) {
         btn.disabled = true
         btn.classList.remove('cursor-pointer')
         btn.classList.add('cursor-no-drop')
@@ -344,9 +346,9 @@ function setPackCount(btn) {
     localStorage.setItem('packs', JSON.stringify(localPacks))
 
     if (btn.parentElement.children[1].value == 0) {
-        if (orderBasket && orderBasket.children[1]) {
-            orderBasket.children[1].innerText = Math.max(0, (parseInt(orderBasket.children[1].innerText) || 1) - 1)
-        }
+        // if (orderBasket && orderBasket.children[1]) {
+        //     orderBasket.children[1].innerText = Math.max(0, (parseInt(orderBasket.children[1].innerText) || 1) - 1)
+        // }
 
         localPacks = localPacks.filter(cart => String(cart.id) !== String(packId))
         localStorage.setItem('packs', JSON.stringify(localPacks))
@@ -384,6 +386,7 @@ function setPackCount(btn) {
             })
         }
     }
+    orderBasket.children[1].innerText = totalCartQuantity
 }
 
 if (orderBasket) {
@@ -423,7 +426,7 @@ if (orderBasket) {
                                 <img src="${imgPath + prod.mainImg}" class="size-full object-cover" alt="">
                             </div>
                             <div class="flex-1 min-w-0 products">
-                                <h3 class="font-semibold text-gray-800 text-sm sm:text-base truncate">${prod.title}</h3>
+                                <h3 class="font-bold text-gray-800 text-sm sm:text-base truncate">${prod.title}</h3>
                                 <p class="text-xs text-gray-500 mt-0.5 mb-5 max-w-full h-8 max-h-8 overflow-hidden ellipsis-2">${prod.summary ? prod.summary : prod.description}</p>
                                 <div class="w-full p-2 bg-(--light-green-btn) hover:bg-(--green-btn) transition-all duration-300 group flex gap-2 justify-center items-center rounded-xl addToCartBtns" data-product-id="${prod.id}">
                                     <button onclick="setCount(this)" class="w-1/3 text-lg font-bold text-(--primary-text-color) transition-all duration-300 group-hover:text-white flex justify-center items-center ${prod.count == prod.quantity ? 'cursor-no-drop' : 'cursor-pointer'}" ${prod.count == prod.quantity ? 'disabled' : ''} data-state="+">+</button>
@@ -450,7 +453,7 @@ if (orderBasket) {
                                 <img src="${imgPath + pack.image}" class="size-full object-cover" alt="">
                             </div>
                             <div class="flex-1 min-w-0 products">
-                                <h3 class="font-semibold text-gray-800 text-sm sm:text-base truncate">${pack.title}</h3>
+                                <h3 class="font-bold text-gray-800 text-sm sm:text-base truncate">${pack.title}</h3>
                                 <p class="text-xs text-gray-500 mt-0.5 mb-5 max-w-full h-8 max-h-8 overflow-hidden ellipsis-2">${pack.summary}</p>
                                 <div class="w-full p-2 bg-(--light-green-btn) hover:bg-(--green-btn) transition-all duration-300 group flex gap-2 justify-center items-center rounded-xl addPackToCartBtn" data-pack-id="${pack.id}">
                                     <button onclick="setPackCount(this)" class="w-1/3 text-lg font-bold text-(--primary-text-color) transition-all duration-300 group-hover:text-white flex justify-center items-center ${pack.count == pack.quantity ? 'cursor-no-drop' : 'cursor-pointer'}" ${pack.count == pack.quantity ? 'disabled' : ''} data-state="+">+</button>
