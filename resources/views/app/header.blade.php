@@ -257,7 +257,7 @@
                     <div
                         class="w-full py-2 flex justify-between items-center px-4 max-sm:px-2 cart_shdow bg-white rounded-lg">
                         <input type="text" name="title" class="outline-none w-full h-full max-sm:text-[15px]"
-                            placeholder="کتاب یا نویسنده یا محصول خود را جستجو کنید">
+                            placeholder="جستجو">
                         <button class="cursor-pointer size-10 flex justify-center items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                                 class="sm:size-5 size-4 fill-[#929391]">

@@ -2,7 +2,7 @@
 @section('title', 'همه محصولات')
 @section('content')
     <script src="{{ asset('js/filters.js') }}"></script>
-    <main class="max-w-[1280px] mx-auto my-4 md:my-6 px-3 md:px-5">
+    <main class="max-w-[1280px] mx-auto my-4 md:my-14 px-3 md:px-5">
         <div class="text-[#71717a] text-xs mb-[18px]">خانه / <b class="text-[#333]">جستجو</b></div>
 
         <div class="grid grid-cols-1 md:grid-cols-[250px_1fr] gap-[18px]">
@@ -86,20 +86,18 @@
                                  alt="{{ $product->title }}" loading="lazy"
                                  class="w-full aspect-square object-contain rounded-lg bg-[#f8f8f8] block mb-3.5">
                             <h3 class="m-0 mb-2.5 text-[13px] leading-[1.9] h-[50px] overflow-hidden">{{ $product->title }}</h3>
-                            <div class="flex justify-between items-center mb-2.5 text-[11px]">
-                                <span>۴٫۹ ⭐</span><span class="text-[#f59e0b]">★★★★★</span>
-                            </div>
+                          
                             @if ($product->secondary_price)
                                 <div class="flex items-center justify-between gap-2">
-                                    <strong class="text-[15px] in-fa">{{ $product->secondary_price }}</strong>
+                                    <strong class="text-[15px] in-fa">{{ number_format($product->secondary_price) }}</strong>
                                     <span
                                             class="text-[10px] text-[#71717a]">تومان
                                     </span>
                                 </div>
-                                <div class="line-through text-[#a1a1aa] text-[10px] in-fa">{{ $product->primary_price }} تومان</div>
+                                <div class="line-through text-[#a1a1aa] text-[10px] in-fa">{{ number_format($product->primary_price) }} تومان</div>
                             @else
                                 <div class="flex items-center justify-between gap-2">
-                                    <strong class="text-[15px] in-fa">{{ $product->primary_price }}</strong>
+                                    <strong class="text-[15px] in-fa">{{ number_format($product->primary_price) }}</strong>
                                     <span
                                             class="text-[10px] text-[#71717a]">تومان
                                     </span>
