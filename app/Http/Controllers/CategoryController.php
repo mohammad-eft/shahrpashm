@@ -173,24 +173,25 @@ class CategoryController extends Controller
     //     return response()->json($category);
     // }
 
-     public function index()
-     {
+    public function index()
+    {
+        $products = product::all();
 
-         $products = product::all();
+        $user = Auth::user();
 
+        $cats = category::has('products')
+            ->where('title', '!=', 'بدون دسته بندی')
+            ->get();
 
+        $setting = homeSetting::document();
 
-         $user = Auth::user();
-         $cats = category::all();
-         $setting = homeSetting::document();
-         return view('user.category.index', [
-
-             'products' => $products,
-             'setting' => $setting,
-             'categories' => $cats,
-             'user' => $user
-         ]);
-     }
+        return view('user.category.index', [
+            'products' => $products,
+            'setting' => $setting,
+            'categories' => $cats,
+            'user' => $user
+        ]);
+    }
 
     // public function show(category $category)
     // {

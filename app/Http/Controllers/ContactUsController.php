@@ -72,7 +72,8 @@ class ContactUsController extends Controller
     public function delete(contactUs $contactUs)
     {
         $contactUs->delete();
-        return to_route('contactUs.myMessage');
+        return redirect()->back();
+        // return to_route('contactUs.myMessage');
     }
      public function deleteAll(Request $request)
     {
