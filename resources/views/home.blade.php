@@ -205,7 +205,7 @@
                 <div class="flex items-center gap-3">
                     <span class="w-8 sm:w-11 h-1 rounded-full bg-[#C6A77D]"></span>
                     <h2 class="sm:text-xl lg:text-2xl font-black text-[#1E3F34]">
-                        محبوب‌ترین 
+                        محبوب‌ترین محصولات
                     </h2>
                 </div>
 
