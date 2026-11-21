@@ -5,13 +5,6 @@
     <main class="max-w-[1280px] mx-auto my-4 md:my-6 px-3 md:px-5">
         <div class="text-[#71717a] text-xs mb-[18px]">خانه / <b class="text-[#333]">جستجو</b></div>
 
-{{--        <div class="flex items-end justify-between gap-2.5 mb-[18px]">--}}
-{{--            <div>--}}
-{{--                <h1 id="title" class="m-0 text-[18px] md:text-[22px]">نتایج جستجو برای "{{ $title }}"</h1>--}}
-{{--                <div id="resultCount" class="text-[#71717a] text-[13px]"></div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
         <div class="grid grid-cols-1 md:grid-cols-[250px_1fr] gap-[18px]">
             <div class="fixed w-full h-dvh bg-black/50 z-99 top-0 right-0 md:hidden invisible opacity-0 transition-all duration-300" id="filterBg"></div>
             <aside class="invisible opacity-0 transition-all duration-300 md:visible md:opacity-100 fixed top-1/2 w-10/12 -translate-y-1/2 right-1/2 translate-x-1/2 md:translate-x-0 md:translate-y-0 z-999 md:z-0 md:static md:block bg-white border border-[#e4e4e7] rounded-xl h-[500px] overflow-y-auto md:h-max md:overflow-hidden" id="filterSection">

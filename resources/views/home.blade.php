@@ -18,7 +18,7 @@
 
         <div class="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-l from-[#F5F0E6]/95 via-[#F5F0E6]/75 to-transparent"></div>
 
-        <div class="relative z-10 flex min-h-[390px] sm:min-h-[460px] lg:min-h-[540px] items-end sm:items-center px-[5%] py-8 sm:py-12">
+        <div class="relative z-10 flex min-h-[350px] sm:min-h-[460px] lg:min-h-[540px] items-end sm:items-center px-[5%] py-8 sm:py-12">
 
             <div class="flex w-full sm:w-3/5 lg:w-[45%] flex-col items-start gap-4 sm:gap-6">
 
@@ -39,7 +39,7 @@
                     @endforeach
                 </div>
 
-                <a href="{{ route('product.index') }}"
+                <a href="{{ $setting['heroPrimaryButtonLink'] }}"
                    class="inline-flex items-center gap-3 rounded-xl bg-[#1E3F34] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#1E3F34]/15 transition hover:-translate-y-1 hover:bg-[#142E26]">
 
                     {{ $setting['heroPrimaryButton'] }}
@@ -71,7 +71,7 @@
                 @foreach ($categories as $cat)
                     @if ($cat->title != "بدون دسته بندی")
 
-                        <a href="{{ route('product.index') }}"
+                        <a href="{{ route('category.relatedProducts', $cat->id) }}"
                            class="group relative isolate h-[180px] sm:h-[220px] lg:h-[250px] overflow-hidden rounded-2xl sm:rounded-3xl bg-[#F5F0E6]">
 
                             <img

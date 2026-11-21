@@ -140,23 +140,22 @@ class CategoryController extends Controller
     }
     public function relatedProducts(category $category)
     {
-        // return $category;
-        // $logo = logo::first();
-        // $services = service::all();
         $categories = category::with('products')->has('products')->get();
         $products = $category->products;
         foreach ($products as $product) {
+            $product->media;
+            // dd($product);
             if ($product->media->isNotEmpty()) {
                 foreach ($product->media as $media) {
                     if ($media['is_main']) {
-                        $product['mainImg']  = $media['media_path'];
+                        $product['image']  = $media['media_path'];
                         break;
                     } else {
-                        $product['mainImg'] = 'default.jpg';
+                        $product['image'] = 'default.jpg';
                     }
                 }
             } else {
-                $product['mainImg'] = 'default.jpg';
+                $product['image'] = 'default.jpg';
             }
         }
         $setting = homeSetting::document();
