@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="{{ asset('js/tailwind.js') }}"></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
-    <link rel="shortcut icon" href="{{ asset('img/faveicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('logo/faveicon.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
     <style>
         .ellipsis-2 {
