@@ -64,56 +64,128 @@ class UserController extends Controller
         return to_route('signup');
         
     }
-
     public function check(Request $request)
     {
-        if($request->code){
-            $validated = $request->validate([
-                'phoneNumber'=>['required'],
-                'code'=>['required'],
-            ],[
-                'phoneNumber.required'=>"وارد کردن شماره تلفن الزامی میباشد",
-                'code.required'=>"وارد کردن کد یکبارمصرف الزامی میباشد",
-            ]);
+        // اعتبارسنجی شماره تلفن
+        $request->validate([
+            'phoneNumber' => ['required'],
+        ], [
+            'phoneNumber.required' => 'وارد کردن شماره تلفن الزامی میباشد',
+        ]);
+
+        // پیدا کردن کاربر
+        $user = User::where('phoneNumber', $request->phoneNumber)
+            ->whereNotNull('password')
+            ->first();
+
+        if (!$user) {
+            return to_route('signup');
         }
-        if($request->password){
-            $validated = $request->validate([
-                'phoneNumber'=>['required'],
-                'password'=>['required'],
-            ],[
-                'phoneNumber.required'=>"وارد کردن شماره تلفن الزامی میباشد",
-                'password.required'=>"وارد کردن گذرواژه الزامی میباشد",
+
+        // ورود با رمز عبور
+        if ($request->filled('password')) {
+
+            $request->validate([
+                'password' => ['required'],
+            ], [
+                'password.required' => 'وارد کردن گذرواژه الزامی میباشد',
             ]);
+
+            if (Hash::check($request->password, $user->password)) {
+
+                $user->role;
+                Auth::login($user);
+
+                return to_route('home');
+            }
+
+            return to_route('login')->with(
+                'error',
+                'لطفا اطلاعات خود را مجددا بررسی کنید'
+            );
         }
+
+        // ورود با کد یکبارمصرف
+        if ($request->filled('code')) {
+
+            $request->validate([
+                'code' => ['required'],
+            ], [
+                'code.required' => 'وارد کردن کد یکبارمصرف الزامی میباشد',
+            ]);
+
+            // دریافت کد ارسال شده به شماره تلفن
+            $phoneCode = phone_code::where('phoneNumber', $request->phoneNumber)
+                ->first();
+
+            if ($phoneCode && $phoneCode->code == $request->code) {
+
+                $user->role;
+                Auth::login($user);
+
+                return to_route('home');
+            }
+
+            return to_route('login')->with(
+                'error',
+                'لطفا اطلاعات خود را مجددا بررسی کنید'
+            );
+        }
+
+        return to_route('login')->with(
+            'error',
+            'لطفا اطلاعات ورود خود را وارد کنید'
+        );
+    }
+    // public function check(Request $request)
+    // {
+    //     if($request->code){
+    //         $validated = $request->validate([
+    //             'phoneNumber'=>['required'],
+    //             'code'=>['required'],
+    //         ],[
+    //             'phoneNumber.required'=>"وارد کردن شماره تلفن الزامی میباشد",
+    //             'code.required'=>"وارد کردن کد یکبارمصرف الزامی میباشد",
+    //         ]);
+    //     }
+    //     if($request->password){
+    //         $validated = $request->validate([
+    //             'phoneNumber'=>['required'],
+    //             'password'=>['required'],
+    //         ],[
+    //             'phoneNumber.required'=>"وارد کردن شماره تلفن الزامی میباشد",
+    //             'password.required'=>"وارد کردن گذرواژه الزامی میباشد",
+    //         ]);
+    //     }
         
         
-        $user = User::where('phoneNumber', $request->phoneNumber)->whereNotNull('password')->first();
+    //     $user = User::where('phoneNumber', $request->phoneNumber)->whereNotNull('password')->first();
 
      
-        if ($user) {
-            if(isset($request->password)){
-                $checkHash = Hash::check($request->password, $user->password);
-                if ($checkHash) {
-                    $user->role;
-                    Auth::login($user);
-                    return to_route('home');
-                }
-            }
-            if(isset($request->code)){
-                $phoneCode = phone_code::where('phoneNumber', $request->phoneNumber)->first();
-                if($phoneCode){
-                    if($phoneCode->code == $request->code){
-                        $user->role;
-                        Auth::login($user);
-                        return to_route('home');
-                    }
-                }
-            }
-            return to_route('login')->with('error', 'لطفا اطلاعات خود را مجددا بررسی کنید');
+    //     if ($user) {
+    //         if(isset($request->password)){
+    //             $checkHash = Hash::check($request->password, $user->password);
+    //             if ($checkHash) {
+    //                 $user->role;
+    //                 Auth::login($user);
+    //                 return to_route('home');
+    //             }
+    //         }
+    //         if(isset($request->code)){
+    //             $phoneCode = phone_code::where('phoneNumber', $request->phoneNumber)->first();
+    //             if($phoneCode){
+    //                 if($phoneCode->code == $request->code){
+    //                     $user->role;
+    //                     Auth::login($user);
+    //                     return to_route('home');
+    //                 }
+    //             }
+    //         }
+    //         return to_route('login')->with('error', 'لطفا اطلاعات خود را مجددا بررسی کنید');
             
-        }
-        return to_route('signup');
-    }
+    //     }
+    //     return to_route('signup');
+    // }
 
     public function logout()
     {

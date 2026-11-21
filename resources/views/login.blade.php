@@ -177,7 +177,7 @@
                         <!-- دکمه ورود -->
                         <button type="submit"
                             id="submitBtn"
-                            class="bg-[#1E3F34] w-full text-center text-white p-3.5 rounded-xl font-medium text-lg mt-4 cursor-pointer shadow-lg shadow-purple-200" onclick="loginToAccount(event, 'password')">
+                            class="bg-[#1E3F34] w-full text-center text-white p-3.5 rounded-xl font-medium text-lg mt-4 cursor-pointer shadow-lg shadow-purple-200" onclick="loginToAccount(event, 'code')">
                             ورود به حساب
                         </button>
                         
@@ -242,86 +242,166 @@
         let loginWay = document.getElementById('loginWay')
         let code = document.getElementById('code')
         let link = "{{ url('/') }}/"
-        function loader(status){
-            if(status === 'open'){
-                document.getElementById('loader').classList.remove('invisible', 'opacity-0')
-            } if(status === 'close'){
-                document.getElementById('loader').classList.remove('invisible', 'opacity-0')
-            }
-        }
-        function loginToAccount(e, way){
-            password = document.getElementById('password')
-            code = document.getElementById('code')
-            e.preventDefault()
-            if(phoneNumber.value == '' || (password && password.value == '') || (code && code.value == '')){
-                openMessage('پر کردن همه فیلد ها الزامی است')
-                setTimeout(function(){
-                    closeMessage()
-                }, 2000)
-            } else {
-                loader('open')
-                if(way == 'code'){
-                    console.log('code')
-                    $.ajax({
-                        url: link+'api/checkCode',
-                        type: "POST",
-                        dataType: "json",
-                        data: {
-                            'phoneNumber': phoneNumber.value,
-                            'code': code.value
-                        },
-                        success: function(response){
-                            console.log(response)
+        function loader(status) {
+            let loaderElement = document.getElementById('loader');
 
-                            if(response){
-                                loginForm.submit()
-                                loader('close')
-                            } else {
-                                openMessage('کد وارد شده نامعتبر')
-                                setTimeout(function(){
-                                    closeMessage()
-                                }, 2000)
-                            }
-                        },
-                        error: function(){
-                            openMessage('خطا در بارگیری اطلاعات')
-                            setTimeout(function(){
-                                closeMessage()
-                            }, 2000)
-                        }
-                    })
-                }
-                if(way == 'password'){
-                    console.log('pass')
-                    $.ajax({
-                        url: link+"api/checkPassKey",
-                        type: "POST",
-                        dataType: "json",
-                        data: {
-                            'phoneNumber': phoneNumber.value,
-                            'password': password.value
-                        },
-                        success: function(response){
-                            if(response){
-                                loader('close')
-                                loginForm.submit()
-                            } else {
-                                openMessage('لطفا اطلاعات خودرا مجددا بررسی نمایید')
-                                setTimeout(function(){
-                                    closeMessage()
-                                }, 2000)
-                            }
-                        },
-                        error: function(){
-                            openMessage('خطا در دریافت داده')
-                            setTimeout(function(){
-                                closeMessage()
-                            }, 2000)
-                        }
-                    })
-                }
+            if (!loaderElement) return;
+
+            if (status === 'open') {
+                loaderElement.classList.remove('invisible', 'opacity-0');
+                loaderElement.classList.add('visible', 'opacity-100');
+            } else if (status === 'close') {
+                loaderElement.classList.remove('visible', 'opacity-100');
+                loaderElement.classList.add('invisible', 'opacity-0');
             }
         }
+        function loginToAccount(e, way) {
+    e.preventDefault();
+
+    password = document.getElementById('password');
+    code = document.getElementById('code');
+
+    if (phoneNumber.value == '') {
+        openMessage('وارد کردن شماره تلفن الزامی است');
+        return;
+    }
+
+    // اعتبارسنجی بر اساس روش ورود
+    if (way == 'code' && (!code || code.value == '')) {
+        openMessage('وارد کردن کد ارسال شده الزامی است');
+        return;
+    }
+
+    if (way == 'password' && (!password || password.value == '')) {
+        openMessage('وارد کردن رمز عبور الزامی است');
+        return;
+    }
+
+    loader('open');
+
+    if (way == 'code') {
+
+        $.ajax({
+            url: link + 'api/checkCode',
+            type: "POST",
+            dataType: "json",
+            data: {
+                phoneNumber: phoneNumber.value,
+                code: code.value
+            },
+            success: function(response) {
+                if (response) {
+                    loginForm.submit();
+                } else {
+                    loader('close');
+                    openMessage('کد وارد شده نامعتبر است');
+                }
+            },
+            error: function() {
+                loader('close');
+                openMessage('خطا در بارگیری اطلاعات');
+            }
+        });
+
+    } else if (way == 'password') {
+
+        $.ajax({
+            url: link + 'api/checkPassKey',
+            type: "POST",
+            dataType: "json",
+            data: {
+                phoneNumber: phoneNumber.value,
+                password: password.value
+            },
+            success: function(response) {
+                if (response) {
+                    loginForm.submit();
+                } else {
+                    loader('close');
+                    openMessage('لطفا اطلاعات خود را مجددا بررسی نمایید');
+                }
+            },
+            error: function() {
+                loader('close');
+                openMessage('خطا در دریافت اطلاعات');
+            }
+        });
+
+    }
+}
+        // function loginToAccount(e, way){
+        //     password = document.getElementById('password')
+        //     code = document.getElementById('code')
+        //     e.preventDefault()
+        //     if(phoneNumber.value == '' || (password && password.value == '') || (code && code.value == '')){
+        //         openMessage('پر کردن همه فیلد ها الزامی است')
+        //         setTimeout(function(){
+        //             closeMessage()
+        //         }, 2000)
+        //     } else {
+        //         loader('open')
+        //         if(way == 'code'){
+        //             console.log('code')
+        //             $.ajax({
+        //                 url: link+'api/checkCode',
+        //                 type: "POST",
+        //                 dataType: "json",
+        //                 data: {
+        //                     'phoneNumber': phoneNumber.value,
+        //                     'code': code.value
+        //                 },
+        //                 success: function(response){
+        //                     console.log(response)
+
+        //                     if(response){
+        //                         loginForm.submit()
+        //                         loader('close')
+        //                     } else {
+        //                         openMessage('کد وارد شده نامعتبر')
+        //                         setTimeout(function(){
+        //                             closeMessage()
+        //                         }, 2000)
+        //                     }
+        //                 },
+        //                 error: function(){
+        //                     openMessage('خطا در بارگیری اطلاعات')
+        //                     setTimeout(function(){
+        //                         closeMessage()
+        //                     }, 2000)
+        //                 }
+        //             })
+        //         }
+        //         if(way == 'password'){
+        //             console.log('pass')
+        //             $.ajax({
+        //                 url: link+"api/checkPassKey",
+        //                 type: "POST",
+        //                 dataType: "json",
+        //                 data: {
+        //                     'phoneNumber': phoneNumber.value,
+        //                     'password': password.value
+        //                 },
+        //                 success: function(response){
+        //                     if(response){
+        //                         loader('close')
+        //                         loginForm.submit()
+        //                     } else {
+        //                         openMessage('لطفا اطلاعات خودرا مجددا بررسی نمایید')
+        //                         setTimeout(function(){
+        //                             closeMessage()
+        //                         }, 2000)
+        //                     }
+        //                 },
+        //                 error: function(){
+        //                     openMessage('خطا در دریافت داده')
+        //                     setTimeout(function(){
+        //                         closeMessage()
+        //                     }, 2000)
+        //                 }
+        //             })
+        //         }
+        //     }
+        // }
         function loginWithActivationCode(el){
             loginWay.innerHTML = ''
             submitBtn.setAttribute('onclick', 'loginToAccount(event, "code")')
