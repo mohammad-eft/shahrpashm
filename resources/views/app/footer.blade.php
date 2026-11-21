@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <!-- social_network_svg -->
-                <div class="w-full py-6 flex items-center justify-center gap-10">
+                <div class="w-full py-6 flex items-center justify-center gap-5 lg:gap-10">
                     <a href="{{ $setting['footerInstagram'] }}"
                         class="p-2 rounded-full bg-[var(--background)] border border-green-700 flex justify-center items-center cursor-pointer scale transition_root">
                         <svg class="sm:size-5 size-4 fill-green-700" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -673,6 +673,91 @@
             font-size: 10px;
         }
     }
+
+
+/* Fix horizontal overflow - Shahrpashm */
+
+.shahr-home {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    box-sizing: border-box;
+}
+
+.shahr-home *,
+.shahr-home *::before,
+.shahr-home *::after {
+    box-sizing: border-box;
+}
+
+.shahr-container {
+    width: 91.666%;
+    max-width: 1440px;
+    margin-inline: auto;
+    min-width: 0;
+}
+
+.shahr-hero,
+.shahr-section,
+.shahr-services,
+.shahr-about,
+.shahr-categories,
+.shahr-products,
+.shahr-services-grid {
+    max-width: 100%;
+    min-width: 0;
+}
+
+.shahr-home img {
+    max-width: 100%;
+}
+
+@media (max-width: 640px) {
+
+    .shahr-home {
+        width: 100%;
+        overflow-x: clip;
+    }
+
+    .shahr-container {
+        width: 92%;
+        max-width: 92%;
+    }
+
+    .shahr-hero {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .shahr-hero > img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .shahr-hero-content {
+        max-width: 90%;
+        right: 5%;
+    }
+
+    .shahr-about-content {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .shahr-products,
+    .shahr-categories,
+    .shahr-services-grid {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .shahr-product,
+    .shahr-category,
+    .shahr-service {
+        min-width: 0;
+    }
+}
+
 </style>
 
 <main class="shahr-home flex flex-col">
