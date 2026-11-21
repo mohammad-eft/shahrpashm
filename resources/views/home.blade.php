@@ -61,7 +61,7 @@
 
             <div class="flex items-center gap-3 mb-6 sm:mb-9">
                 <span class="w-8 sm:w-11 h-1 rounded-full bg-[#C6A77D]"></span>
-                <h2 class="text-xl sm:text-2xl lg:text-3xl font-black text-[#1E3F34]">
+                <h2 class="sm:text-xl lg:text-2xl font-black text-[#1E3F34]">
                     دسته‌بندی محصولات
                 </h2>
             </div>
@@ -204,7 +204,7 @@
             <div class="flex items-center justify-between gap-3 mb-6 sm:mb-9">
                 <div class="flex items-center gap-3">
                     <span class="w-8 sm:w-11 h-1 rounded-full bg-[#C6A77D]"></span>
-                    <h2 class="text-xl sm:text-2xl lg:text-3xl font-black text-[#1E3F34]">
+                    <h2 class="sm:text-xl lg:text-2xl font-black text-[#1E3F34]">
                         محبوب‌ترین محصولات
                     </h2>
                 </div>
@@ -271,16 +271,15 @@
 
                                 @if ($product->count > 0)
 
-                                    <button
-                                        onclick="addToCart(this)"
-                                        class="flex w-full min-h-10 items-center justify-center gap-2 rounded-xl bg-[#EAF0E9] px-2 py-2.5 text-[10px] sm:text-xs font-extrabold text-[#1E3F34] transition hover:bg-[#1E3F34] hover:text-white">
-
-                                        <svg class="h-4 w-4 shrink-0 fill-current" viewBox="0 0 576 512">
-                                            <path d="M16 0H0V32H16 67.2l77.2 339.5 2.8 12.5H160 496h16V352H496 172.8l-14.5-64H496L566 64l10-32H542.5 100L95.6 12.5 92.8 0H80 16zm91.3 64H532.5l-60 192H151L107.3 64zM184 432a24 24 0 1 1 0 48 24 24 0 0 1 0-48zm0 80a56 56 0 1 0 0-112 56 56 0 0 0 0 112zm248-56a24 24 0 1 1 48 0 24 24 0 0 1-48 0zm80 0a56 56 0 1 0-112 0 56 56 0 0 0 112 0z"/>
-                                        </svg>
-
-                                        افزودن به سبد خرید
-                                    </button>
+                                    <button onclick="addPackToCart(this)" class="w-full p-3 h-full bg-(--light-green-btn) flex gap-2 justify-center items-center rounded-xl cursor-pointer transition-all duration-300 hover:bg-(--green-btn) group">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="lg:size-4 size-3 fill-(--primary-text-color) transition-all duration-300 group-hover:fill-white">
+                        <path d="M16 0H0V32H16 67.2l77.2 339.5 2.8 12.5H160 496h16V352H496 172.8l-14.5-64H496L566 64l10-32H542.5 100L95.6 12.5 92.8 0H80 16zm91.3 64H532.5l-60 192H151L107.3 64zM184 432a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm0 80a56 56 0 1 0 0-112 56 56 0 1 0 0 112zm248-56a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm80 0a56 56 0 1 0 -112 0 56 56 0 1 0 112 0z">
+                        </path>
+                    </svg>
+                </div>
+                <span class="lg:text-sm text-[10px] text-(--primary-text-color) font-bold transition-all duration-300 group-hover:text-white">افزودن به سبد خرید</span>
+            </button>
 
                                 @else
 
