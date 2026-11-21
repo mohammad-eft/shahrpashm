@@ -237,7 +237,7 @@
                         <div class="flex flex-col gap-3 p-3 sm:p-4">
 
                             <a href="{{ route('product.show', [$product->id]) }}"
-                               class="line-clamp-2 min-h-[44px] text-xs sm:text-sm font-extrabold leading-7 text-[#1E3F34] transition hover:text-[#9B7A50]">
+                               class="line-clamp-2 min-h-[44px] text-xs sm:text-sm font-bold leading-7 text-[#1E3F34] transition hover:text-[#9B7A50]">
                                 {{ $product->title }}
                             </a>
 
