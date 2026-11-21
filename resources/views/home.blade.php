@@ -1,1049 +1,295 @@
-
 @extends('app.document')
 
 @section('title', 'فروشگاه شهرپشم')
 
 @section('content')
 
-<style>
-    :root {
-        --shahr-green: #1E3F34;
-        --shahr-green-dark: #142E26;
-        --shahr-cream: #F5F0E6;
-        --shahr-beige: #C6A77D;
-        --shahr-text: #263C32;
-        --shahr-muted: #7C887F;
-    }
+    <main class="w-full overflow-x-clip text-[#263C32]">
 
-    .shahr-home {
-        color: var(--shahr-text);
-        overflow: hidden;
-    }
+        {{-- HERO --}}
+        <section id="hiro"
+            class="relative isolate min-h-[390px] sm:min-h-[460px] lg:min-h-[540px] w-full overflow-hidden bg-[#F5F0E6]">
 
-    .shahr-container {
-        width: 91.666%;
-        max-width: 1440px;
-        margin-inline: auto;
-    }
+            <img src="{{ asset('storage/' . $setting['heroBanner']) }}" alt="محصولات پشمی شهرپشم"
+                class="absolute inset-0 w-full h-full object-cover">
 
-    .shahr-section {
-        padding-block: 65px;
-    }
-
-    .shahr-section-heading {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 30px;
-    }
-
-    .shahr-section-heading::before {
-        content: '';
-        width: 42px;
-        height: 3px;
-        background: var(--shahr-beige);
-        border-radius: 10px;
-    }
-
-    .shahr-section-heading h2 {
-        font-size: clamp(20px, 2vw, 28px);
-        font-weight: 800;
-        color: var(--shahr-green);
-    }
-
-    .shahr-btn {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        background: var(--shahr-green);
-        color: white;
-        padding: 13px 24px;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 700;
-        transition: .3s ease;
-        cursor: pointer;
-    }
-
-    .shahr-btn:hover {
-        background: var(--shahr-green-dark);
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px #1E3F3425;
-    }
-
-    .shahr-btn svg {
-        transition: .3s ease;
-    }
-
-    .shahr-btn:hover svg {
-        transform: translateX(-5px);
-    }
-
-    /* Hero */
-
-    .shahr-hero {
-        position: relative;
-        width: 100%;
-        min-height: 520px;
-        overflow: hidden;
-        background: var(--shahr-cream);
-    }
-
-    .shahr-hero > img {
-        width: 100%;
-        height: 520px;
-        object-fit: cover;
-        display: block;
-    }
-
-    .shahr-hero::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-            270deg,
-            rgba(245,240,230,.96) 0%,
-            rgba(245,240,230,.85) 32%,
-            rgba(245,240,230,.20) 65%,
-            transparent 100%
-        );
-        pointer-events: none;
-    }
-
-    .shahr-hero-content {
-        position: absolute;
-        z-index: 2;
-        top: 50%;
-        right: 9%;
-        transform: translateY(-50%);
-        width: 44%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 23px;
-    }
-
-    .shahr-hero-tag {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--shahr-green);
-        background: #FFFFFFB8;
-        padding: 8px 16px;
-        border-radius: 30px;
-        font-size: 13px;
-        font-weight: 700;
-    }
-
-    .shahr-hero-title {
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-        font-size: clamp(34px, 4.8vw, 67px);
-        line-height: 1.45;
-        font-weight: 900;
-        color: var(--shahr-green);
-    }
-
-    .shahr-hero-title span:last-child {
-        color: #9B7A50;
-    }
-
-    .shahr-hero-subtitle {
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-        font-size: clamp(13px, 1.3vw, 17px);
-        line-height: 2;
-        color: #46594D;
-    }
-
-    /* Categories */
-
-    .shahr-categories {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 22px;
-    }
-
-    .shahr-category {
-        position: relative;
-        height: 245px;
-        overflow: hidden;
-        border-radius: 20px;
-        background: var(--shahr-cream);
-        isolation: isolate;
-    }
-
-    .shahr-category > img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform .6s ease;
-    }
-
-    .shahr-category::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: linear-gradient(
-            270deg,
-            rgba(245,240,230,.96) 0%,
-            rgba(245,240,230,.77) 48%,
-            rgba(245,240,230,.05) 100%
-        );
-    }
-
-    .shahr-category:hover > img {
-        transform: scale(1.07);
-    }
-
-    .shahr-category-content {
-        position: absolute;
-        z-index: 2;
-        top: 50%;
-        right: 20px;
-        transform: translateY(-50%);
-        width: 65%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-    }
-
-    .shahr-category-content h3 {
-        font-size: 22px;
-        font-weight: 900;
-        color: var(--shahr-green);
-    }
-
-    .shahr-category-content p {
-        font-size: 13px;
-        line-height: 2;
-        color: #526258;
-    }
-
-    .shahr-category-arrow {
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        background: var(--shahr-green);
-        transition: .3s;
-    }
-
-    .shahr-category:hover .shahr-category-arrow {
-        background: var(--shahr-beige);
-        transform: translateX(-5px);
-    }
-
-    /* Services */
-
-    .shahr-services {
-        background: var(--shahr-cream);
-        padding-block: 28px;
-    }
-
-    .shahr-services-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 20px;
-    }
-
-    .shahr-service {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 13px;
-        border-left: 1px solid #1E3F3420;
-    }
-
-    .shahr-service:last-child {
-        border-left: none;
-    }
-
-    .shahr-service-icon {
-        flex-shrink: 0;
-        width: 58px;
-        height: 58px;
-        background: white;
-        border-radius: 17px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-    }
-
-    .shahr-service-icon img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-
-    .shahr-service h3 {
-        font-size: 15px;
-        font-weight: 800;
-        color: var(--shahr-green);
-        margin-bottom: 5px;
-    }
-
-    .shahr-service p {
-        font-size: 12px;
-        line-height: 1.9;
-        color: var(--shahr-muted);
-    }
-
-    /* About */
-
-    .shahr-about {
-        position: relative;
-        min-height: 400px;
-        border-radius: 24px;
-        overflow: hidden;
-        background: var(--shahr-cream);
-    }
-
-    .shahr-about > img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .shahr-about::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-            270deg,
-            rgba(245,240,230,.97) 0%,
-            rgba(245,240,230,.92) 40%,
-            rgba(245,240,230,.10) 100%
-        );
-    }
-
-    .shahr-about-content {
-        position: relative;
-        z-index: 2;
-        width: 53%;
-        padding: 55px 50px;
-    }
-
-    .shahr-about-content h3 {
-        color: var(--shahr-green);
-        font-size: clamp(23px, 2.6vw, 35px);
-        font-weight: 900;
-        line-height: 1.8;
-        margin-block: 15px;
-    }
-
-    .shahr-about-content p {
-        color: #4F6055;
-        font-size: 14px;
-        line-height: 2.5;
-        white-space: pre-line;
-    }
-
-    /* Products */
-
-    .shahr-products {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 20px;
-    }
-
-    .shahr-product {
-        min-width: 0;
-        overflow: hidden;
-        background: white;
-        border: 1px solid #1E3F3415;
-        border-radius: 18px;
-        transition: .35s ease;
-    }
-
-    .shahr-product:hover {
-        transform: translateY(-7px);
-        box-shadow: 0 15px 35px #1E3F3414;
-        border-color: #C6A77D80;
-    }
-
-    .shahr-product-image {
-        position: relative;
-        display: block;
-        height: 210px;
-        overflow: hidden;
-        background: var(--shahr-cream);
-    }
-
-    .shahr-product-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform .5s ease;
-    }
-
-    .shahr-product:hover .shahr-product-image img {
-        transform: scale(1.06);
-    }
-
-    .shahr-product-body {
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-    }
-
-    .shahr-product-title {
-        height: 48px;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        color: var(--shahr-green);
-        font-size: 14px;
-        line-height: 1.9;
-        font-weight: 800;
-    }
-
-    .shahr-product-price {
-        min-height: 27px;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .shahr-product-price strong {
-        color: var(--shahr-green);
-        font-size: 15px;
-        font-weight: 900;
-    }
-
-    .shahr-product-price del {
-        color: #9CA39D;
-        font-size: 12px;
-    }
-
-    .shahr-cart-button {
-        width: 100%;
-        min-height: 43px;
-        border-radius: 11px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-        background: #EAF0E9;
-        color: var(--shahr-green);
-        font-size: 12px;
-        font-weight: 800;
-        transition: .3s;
-        cursor: pointer;
-    }
-
-    .shahr-cart-button:hover {
-        background: var(--shahr-green);
-        color: white;
-    }
-
-    .shahr-cart-button svg {
-        width: 17px;
-        height: 17px;
-        fill: currentColor;
-    }
-
-    .shahr-cart-button.out-of-stock {
-        background: #F3E8E5;
-        color: #A45C4F;
-        cursor: not-allowed;
-    }
-
-    @media(max-width: 1024px) {
-        .shahr-products {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        .shahr-services-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .shahr-service:nth-child(2) {
-            border-left: none;
-        }
-
-        .shahr-categories {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .shahr-hero-content {
-            width: 55%;
-        }
-    }
-
-    @media(max-width: 640px) {
-        .shahr-container {
-            width: 92%;
-        }
-
-        .shahr-section {
-            padding-block: 38px;
-        }
-
-        .shahr-section-heading {
-            margin-bottom: 20px;
-            gap: 9px;
-        }
-
-        .shahr-section-heading::before {
-            width: 25px;
-        }
-
-        .shahr-hero {
-            min-height: 390px;
-        }
-
-        .shahr-hero > img {
-            height: 390px;
-            object-position: center;
-        }
-
-        .shahr-hero::after {
-            background: linear-gradient(
-                0deg,
-                rgba(245,240,230,.98) 0%,
-                rgba(245,240,230,.90) 48%,
-                rgba(245,240,230,.05) 100%
-            );
-        }
-
-        .shahr-hero-content {
-            top: auto;
-            bottom: 24px;
-            right: 5%;
-            transform: none;
-            width: 90%;
-            gap: 12px;
-        }
-
-        .shahr-hero-title {
-            font-size: 31px;
-            line-height: 1.6;
-        }
-
-        .shahr-hero-subtitle {
-            font-size: 12px;
-            line-height: 1.9;
-        }
-
-        .shahr-hero-tag {
-            font-size: 11px;
-            padding: 6px 12px;
-        }
-
-        .shahr-btn {
-            padding: 10px 17px;
-            font-size: 12px;
-        }
-
-        .shahr-categories {
-            grid-template-columns: 1fr;
-            gap: 14px;
-        }
-
-        .shahr-category {
-            height: 180px;
-            border-radius: 16px;
-        }
-
-        .shahr-category-content {
-            right: 17px;
-            width: 65%;
-            gap: 8px;
-        }
-
-        .shahr-category-content h3 {
-            font-size: 18px;
-        }
-
-        .shahr-category-content p {
-            font-size: 12px;
-        }
-
-        .shahr-category-arrow {
-            width: 32px;
-            height: 32px;
-        }
-
-        .shahr-services {
-            padding-block: 18px;
-        }
-
-        .shahr-services-grid {
-            gap: 8px;
-        }
-
-        .shahr-service {
-            padding: 9px 4px;
-            gap: 8px;
-            border-left: none;
-        }
-
-        .shahr-service-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            padding: 7px;
-        }
-
-        .shahr-service h3 {
-            font-size: 11px;
-        }
-
-        .shahr-service p {
-            font-size: 10px;
-        }
-
-        .shahr-about {
-            min-height: 380px;
-            border-radius: 18px;
-        }
-
-        .shahr-about::after {
-            background: linear-gradient(
-                0deg,
-                rgba(245,240,230,.98) 0%,
-                rgba(245,240,230,.92) 65%,
-                rgba(245,240,230,.1) 100%
-            );
-        }
-
-        .shahr-about-content {
-            width: 100%;
-            padding: 175px 20px 24px;
-        }
-
-        .shahr-about-content h3 {
-            font-size: 23px;
-            line-height: 1.8;
-        }
-
-        .shahr-about-content p {
-            font-size: 12px;
-            line-height: 2.2;
-        }
-
-        .shahr-products {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 12px;
-        }
-
-        .shahr-product {
-            border-radius: 14px;
-        }
-
-        .shahr-product-image {
-            height: 155px;
-        }
-
-        .shahr-product-body {
-            padding: 10px;
-            gap: 10px;
-        }
-
-        .shahr-product-title {
-            font-size: 12px;
-            height: 43px;
-        }
-
-        .shahr-product-price strong {
-            font-size: 12px;
-        }
-
-        .shahr-product-price del {
-            font-size: 10px;
-        }
-
-        .shahr-cart-button {
-            min-height: 39px;
-            font-size: 10px;
-        }
-    }
-
-
-/* Fix horizontal overflow - Shahrpashm */
-
-.shahr-home {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: clip;
-    box-sizing: border-box;
-}
-
-.shahr-home *,
-.shahr-home *::before,
-.shahr-home *::after {
-    box-sizing: border-box;
-}
-
-.shahr-container {
-    width: 91.666%;
-    max-width: 1440px;
-    margin-inline: auto;
-    min-width: 0;
-}
-
-.shahr-hero,
-.shahr-section,
-.shahr-services,
-.shahr-about,
-.shahr-categories,
-.shahr-products,
-.shahr-services-grid {
-    max-width: 100%;
-    min-width: 0;
-}
-
-.shahr-home img {
-    max-width: 100%;
-}
-
-@media (max-width: 640px) {
-
-    .shahr-home {
-        width: 100%;
-        overflow-x: clip;
-    }
-
-    .shahr-container {
-        width: 92%;
-        max-width: 92%;
-    }
-
-    .shahr-hero {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .shahr-hero > img {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .shahr-hero-content {
-        max-width: 90%;
-        right: 5%;
-    }
-
-    .shahr-about-content {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .shahr-products,
-    .shahr-categories,
-    .shahr-services-grid {
-        width: 100%;
-        min-width: 0;
-    }
-
-    .shahr-product,
-    .shahr-category,
-    .shahr-service {
-        min-width: 0;
-    }
-}
-
-</style>
-
-<main class="shahr-home flex flex-col">
-
-    {{-- HERO --}}
-    <section id="hiro" class="shahr-hero">
-
-        <img
-            src="{{ asset('storage/'.$setting['heroBanner']) }}"
-            alt="محصولات پشمی شهرپشم"
-        >
-
-        <div class="shahr-hero-content">
-
-            @php
-                $titleParts = explode('|', $setting['heroTitle']);
-            @endphp
-
-            <h1 class="shahr-hero-title">
-                @foreach($titleParts as $part)
-                    <span>{{ trim($part) }}</span>
-                @endforeach
-            </h1>
-
-            @php
-                $subTitleParts = explode('|', $setting['heroSubtitle']);
-            @endphp
-
-            <div class="shahr-hero-subtitle">
-                @foreach($subTitleParts as $part)
-                    <span>{{ trim($part) }}</span>
-                @endforeach
+            <div
+                class="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-l from-[#F5F0E6]/95 via-[#F5F0E6]/75 to-transparent">
             </div>
 
-            <a href="{{ route('product.index') }}" class="shahr-btn">
-                {{ $setting['heroPrimaryButton'] }}
+            <div
+                class="relative z-10 flex min-h-[390px] sm:min-h-[460px] lg:min-h-[540px] items-end sm:items-center px-[5%] py-8 sm:py-12">
 
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    width="20" height="20" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="1.8"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 12H5M12 19l-7-7 7-7"/>
-                </svg>
-            </a>
+                <div class="flex w-full sm:w-3/5 lg:w-[45%] flex-col items-start gap-4 sm:gap-6">
 
-        </div>
-    </section>
+                    @php
+                        $titleParts = explode('|', $setting['heroTitle']);
+                        $subTitleParts = explode('|', $setting['heroSubtitle']);
+                    @endphp
 
 
-    {{-- CATEGORIES --}}
-    <section id="category" class="shahr-section">
 
-        <div class="shahr-container">
+                    <h1 class="flex flex-col gap-1 text-3xl sm:text-4xl lg:text-6xl font-bold leading-[1.6] text-[#1E3F34]">
+                        @foreach ($titleParts as $part)
+                            <span>{{ trim($part) }}</span>
+                        @endforeach
+                    </h1>
 
-            <div class="shahr-section-heading">
-                <h2>دسته‌بندی محصولات</h2>
-            </div>
-
-            <div class="shahr-categories">
-
-                @foreach ($categories as $cat)
-                    @if ($cat->title != "بدون دسته بندی")
-
-                        <a href="{{ route('product.index') }}"
-                            class="shahr-category">
-
-                            <img
-                                src="{{ asset('storage/'.$cat->image) }}"
-                                alt="{{ $cat->title }}"
-                                loading="lazy"
-                            >
-
-                            <div class="shahr-category-content">
-
-                                <h3>{{ $cat->title }}</h3>
-
-                                <p>{{ $cat->description }}</p>
-
-                                <span class="shahr-category-arrow">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        width="19" height="19"
-                                        viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <path d="M19 12H5M12 19l-7-7 7-7"/>
-                                    </svg>
-                                </span>
-
-                            </div>
-                        </a>
-
-                    @endif
-                @endforeach
-
-            </div>
-        </div>
-    </section>
-
-
-    {{-- SERVICES --}}
-    <section id="خدمات" class="shahr-services">
-
-        <div class="shahr-container">
-
-            <div class="shahr-services-grid">
-
-                @for($i = 1; $i <= 4; $i++)
-
-                    <div class="shahr-service">
-
-                        <div class="shahr-service-icon">
-                            <img
-                                src="{{ asset('storage/'.$setting['serviceImage'.$i]) }}"
-                                alt=""
-                                loading="lazy"
-                            >
-                        </div>
-
-                        <div>
-                            <h3>
-                                {{ $setting['serviceTitle'.$i] }}
-                            </h3>
-
-                            <p>
-                                {{ $setting['serviceSubTitle'.$i] }}
-                            </p>
-                        </div>
-
+                    <div class="flex flex-col gap-1 text-xs sm:text-sm lg:text-base leading-8 text-[#46594D]">
+                        @foreach ($subTitleParts as $part)
+                            <span>{{ trim($part) }}</span>
+                        @endforeach
                     </div>
 
-                @endfor
+                    <a href="{{ route('product.index') }}"
+                        class="inline-flex items-center gap-3 rounded-xl bg-[#1E3F34] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#1E3F34]/15 transition hover:-translate-y-1 hover:bg-[#142E26]">
 
-            </div>
-        </div>
-    </section>
+                        {{ $setting['heroPrimaryButton'] }}
 
-
-    {{-- ABOUT --}}
-    <section id="about" class="shahr-section">
-
-        <div class="shahr-container">
-
-            <div class="shahr-about">
-
-                <img
-                    src="{{ asset('storage/'.$setting['secondBanner']) }}"
-                    alt="درباره شهرپشم"
-                    loading="lazy"
-                >
-
-                <div class="shahr-about-content">
-
-                    <div class="shahr-section-heading mb-0">
-                        <h2>درباره ما</h2>
-                    </div>
-
-                    <h3>
-                        {{ $setting['secondBannerTitle'] }}
-                    </h3>
-
-                    <p>{{ $setting['secondBannerSubtitle'] }}</p>
-
-                    <a href="{{ route('aboutUs.list') }}"
-                        class="shahr-btn mt-5">
-
-                        {{ $setting['secondBannerButton'] }}
-
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            width="20" height="20" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor"
-                            stroke-width="1.8" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
                         </svg>
-
                     </a>
 
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
-    {{-- POPULAR PRODUCTS --}}
-    <section id="محبوب ترین محصولات" class="shahr-section pt-0">
+        {{-- CATEGORIES --}}
+        <section id="category" class="py-10 sm:py-14 lg:py-16">
 
-        <div class="shahr-container">
+            <div class="w-[92%] max-w-[1440px] mx-auto">
 
-            <div class="shahr-section-heading">
-                <h2>محبوب‌ترین محصولات</h2>
-            </div>
+                <div class="flex items-center gap-3 mb-6 sm:mb-9">
+                    <span class="w-8 sm:w-11 h-1 rounded-full bg-[#C6A77D]"></span>
+                    <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1E3F34]">
+                        دسته‌بندی محصولات
+                    </h2>
+                </div>
 
-            <div class="shahr-products">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
 
-                @foreach ($products as $product)
+                    @foreach ($categories as $cat)
+                        @if ($cat->title != 'بدون دسته بندی')
+                            <a href="{{ route('product.index') }}"
+                                class="group relative isolate h-[180px] sm:h-[220px] lg:h-[250px] overflow-hidden rounded-2xl sm:rounded-3xl bg-[#F5F0E6]">
 
-                    <div class="shahr-product products"
-                        data-product-id="{{ $product->id }}">
+                                <img src="{{ asset('storage/' . $cat->image) }}" alt="{{ $cat->title }}" loading="lazy"
+                                    class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110">
 
-                        <a
-                            href="{{ route('product.show', [$product->id]) }}"
-                            class="shahr-product-image"
-                        >
-                            <img
-                                src="{{ asset('storage/'.$product->image) }}"
-                                alt="{{ $product->title }}"
-                                loading="lazy"
-                            >
-                        </a>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-l from-[#F5F0E6]/95 via-[#F5F0E6]/75 to-transparent">
+                                </div>
 
-                        <div class="shahr-product-body">
+                                <div
+                                    class="absolute inset-y-0 right-0 flex w-[70%] flex-col items-start justify-center gap-3 p-5 sm:p-6">
 
-                            <a
-                                href="{{ route('product.show', [$product->id]) }}"
-                                class="shahr-product-title"
-                            >
-                                {{ $product->title }}
+                                    <h3 class="text-lg sm:text-xl font-bold text-[#1E3F34]">
+                                        {{ $cat->title }}
+                                    </h3>
+
+                                    <p class="line-clamp-2 text-xs sm:text-sm leading-7 text-[#526258]">
+                                        {{ $cat->description }}
+                                    </p>
+
+                                    <span
+                                        class="flex h-9 w-9 items-center justify-center rounded-full bg-[#1E3F34] text-white transition group-hover:bg-[#C6A77D] group-hover:-translate-x-1">
+                                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2">
+                                            <path d="M19 12H5M12 19l-7-7 7-7" />
+                                        </svg>
+                                    </span>
+
+                                </div>
                             </a>
+                        @endif
+                    @endforeach
 
-                            <div class="shahr-product-price">
+                </div>
+            </div>
+        </section>
 
-                                @if($product->secondary_price)
 
-                                    <strong class="in-fa">
-                                        {{ number_format($product->secondary_price) }}
-                                        تومان
-                                    </strong>
+        {{-- SERVICES --}}
+        <section id="خدمات" class="bg-[#F5F0E6] py-6 sm:py-9">
 
-                                    <del class="in-fa">
-                                        {{ number_format($product->primary_price) }}
-                                        تومان
-                                    </del>
+            <div class="w-[92%] max-w-[1440px] mx-auto">
 
-                                @else
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
 
-                                    <strong class="in-fa">
-                                        {{ number_format($product->primary_price) }}
-                                        تومان
-                                    </strong>
+                    @for ($i = 1; $i <= 4; $i++)
+                        <div class="flex items-center gap-3 sm:gap-4 min-w-0 p-2 sm:p-4">
 
-                                @endif
-
+                            <div
+                                class="flex h-11 w-11 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-white p-2.5 shadow-sm">
+                                <img src="{{ asset('storage/' . $setting['serviceImage' . $i]) }}" alt=""
+                                    loading="lazy" class="w-full h-full object-contain">
                             </div>
 
-                            <div class="addToCartBtns"
-                                data-product-id="{{ $product->id }}">
+                            <div class="min-w-0">
+                                <h3 class="text-xs sm:text-sm font-bold text-[#1E3F34] leading-6">
+                                    {{ $setting['serviceTitle' . $i] }}
+                                </h3>
 
-                                @if ($product->count > 0)
-
-                                    <button
-                                        onclick="addToCart(this)"
-                                        class="shahr-cart-button"
-                                    >
-
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 576 512">
-                                            <path d="M16 0H0V32H16 67.2l77.2 339.5 2.8 12.5H160 496h16V352H496 172.8l-14.5-64H496L566 64l10-32H542.5 100L95.6 12.5 92.8 0H80 16zm91.3 64H532.5l-60 192H151L107.3 64zM184 432a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm0 80a56 56 0 1 0 0-112 56 56 0 0 0 0 112zm248-56a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm80 0a56 56 0 1 0 -112 0 56 56 0 0 0 112 0z"/>
-                                        </svg>
-
-                                        افزودن به سبد خرید
-
-                                    </button>
-
-                                @else
-
-                                    <button
-                                        class="shahr-cart-button out-of-stock"
-                                        disabled
-                                    >
-                                        عدم موجودی
-                                    </button>
-
-                                @endif
-
+                                <p class="mt-1 text-[10px] sm:text-xs leading-6 text-[#7C887F]">
+                                    {{ $setting['serviceSubTitle' . $i] }}
+                                </p>
                             </div>
 
                         </div>
+                    @endfor
+
+                </div>
+            </div>
+        </section>
+
+
+        {{-- ABOUT --}}
+        <section id="about" class="py-10 sm:py-14 lg:py-16">
+
+            <div class="w-[92%] max-w-[1440px] mx-auto">
+
+                <div
+                    class="relative isolate min-h-[390px] sm:min-h-[400px] overflow-hidden rounded-2xl sm:rounded-3xl bg-[#F5F0E6]">
+
+                    <img src="{{ asset('storage/' . $setting['secondBanner']) }}" alt="درباره شهرپشم" loading="lazy"
+                        class="absolute inset-0 w-full h-full object-cover">
+
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-l from-[#F5F0E6]/95 via-[#F5F0E6]/85 to-transparent">
                     </div>
 
-                @endforeach
+                    <div
+                        class="relative z-10 flex min-h-[390px] sm:min-h-[400px] w-full sm:w-[65%] lg:w-[55%] flex-col items-start justify-end sm:justify-center p-5 sm:p-10 lg:p-14">
 
+                        <div class="flex items-center gap-3">
+                            <span class="h-1 w-9 rounded-full bg-[#C6A77D]"></span>
+                            <span class="text-sm font-bold text-[#1E3F34]">درباره شهرپشم</span>
+                        </div>
+
+                        <h2 class="my-4 text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.8] text-[#1E3F34]">
+                            {{ $setting['secondBannerTitle'] }}
+                        </h2>
+
+                        <p class="text-xs sm:text-sm leading-8 text-[#4F6055] whitespace-pre-line">
+                            {{ $setting['secondBannerSubtitle'] }}
+                        </p>
+
+                        <a href="{{ route('aboutUs.list') }}"
+                            class="mt-5 inline-flex items-center gap-3 rounded-xl bg-[#1E3F34] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#142E26]">
+
+                            {{ $setting['secondBannerButton'] }}
+
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7" />
+                            </svg>
+                        </a>
+
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-</main>
+
+        {{-- POPULAR PRODUCTS --}}
+        <section id="محبوب ترین محصولات" class="pb-12 sm:pb-16 lg:pb-20">
+
+            <div class="w-[92%] max-w-[1440px] mx-auto">
+
+                <div class="flex items-center justify-between gap-3 mb-6 sm:mb-9">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 sm:w-11 h-1 rounded-full bg-[#C6A77D]"></span>
+                        <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1E3F34]">
+                            محبوب‌ترین محصولات
+                        </h2>
+                    </div>
+
+                    <a href="{{ route('product.index') }}"
+                        class="shrink-0 text-xs sm:text-sm font-bold text-[#1E3F34] hover:text-[#9B7A50] transition">
+                        مشاهده همه
+                        ←
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-5">
+
+                    @foreach ($products as $product)
+                        <div class="products group min-w-0 overflow-hidden rounded-xl sm:rounded-2xl border border-[#1E3F34]/10 bg-white transition duration-300 hover:-translate-y-1.5 hover:border-[#C6A77D]/60 hover:shadow-xl hover:shadow-[#1E3F34]/10"
+                            data-product-id="{{ $product->id }}">
+
+                            <a href="{{ route('product.show', [$product->id]) }}"
+                                class="relative block h-[155px] sm:h-[190px] lg:h-[220px] overflow-hidden bg-[#F5F0E6]">
+
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}"
+                                    loading="lazy"
+                                    class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                            </a>
+
+                            <div class="flex flex-col gap-3 p-3 sm:p-4">
+
+                                <a href="{{ route('product.show', [$product->id]) }}"
+                                    class="line-clamp-2 min-h-[44px] text-xs sm:text-sm font-bold leading-7 text-[#1E3F34] transition hover:text-[#9B7A50]">
+                                    {{ $product->title }}
+                                </a>
+
+                                <div class="flex flex-wrap items-center gap-2 min-h-6">
+
+                                    @if ($product->secondary_price)
+                                        <strong class="in-fa text-xs sm:text-sm font-bold text-[#1E3F34]">
+                                            {{ number_format($product->secondary_price) }}
+                                            تومان
+                                        </strong>
+
+                                        <del class="in-fa text-[10px] sm:text-xs text-gray-400">
+                                            {{ number_format($product->primary_price) }}
+                                            تومان
+                                        </del>
+                                    @else
+                                        <strong class="in-fa text-xs sm:text-sm font-bold text-[#1E3F34]">
+                                            {{ number_format($product->primary_price) }}
+                                            تومان
+                                        </strong>
+                                    @endif
+
+                                </div>
+
+                                <div class="addToCartBtns" data-product-id="{{ $product->id }}">
+
+                                    @if ($product->count > 0)
+                                        <button onclick="addToCart(this)"
+                                            class="w-full min-h-[42px] px-4 py-2 bg-(--light-green-btn) flex gap-2 justify-center items-center rounded-xl cursor-pointer transition-all duration-300 hover:bg-(--green-btn) group">
+                                            <div class="flex items-center justify-center shrink-0">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+                                                    class="lg:size-4 size-3 fill-(--primary-text-color) transition-all duration-300 group-hover:fill-white">
+                                                    <path
+                                                        d="M16 0H0V32H16 67.2l77.2 339.5 2.8 12.5H160 496h16V352H496 172.8l-14.5-64H496L566 64l10-32H542.5 100L95.6 12.5 92.8 0H80 16zm91.3 64H532.5l-60 192H151L107.3 64zM184 432a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm0 80a56 56 0 1 0 0-112 56 56 0 1 0 0 112zm248-56a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm80 0a56 56 0 1 0 -112 0 56 56 0 1 0 112 0z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <span
+                                                class="lg:text-sm text-[10px] text-(--primary-text-color) font-bold transition-all duration-300 group-hover:text-white whitespace-nowrap">
+                                                افزودن به سبد خرید
+                                            </span>
+                                        </button>
+                                    @else
+                                        <button
+                                            class="flex w-full min-h-10 items-center justify-center rounded-xl bg-red-50 px-2 py-2.5 text-xs font-bold text-red-600 cursor-not-allowed"
+                                            disabled>
+                                            عدم موجودی
+                                        </button>
+                                    @endif
+
+                                </div>
+
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+            </div>
+        </section>
+
+    </main>
 
 @endsection
