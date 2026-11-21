@@ -1,229 +1,308 @@
+
 @extends('app.document')
-@section('title', "فروشگاه شهرپشم")
+
+@section('title', 'فروشگاه شهرپشم')
+
 @section('content')
-<style>
-    .groupMainBtn:hover svg {
-        animation: go 2s infinite ease-in-out;
-    }
 
-    @keyframes go {
-        0% {
-            transform: translateX(0);
-        }
+<main class="w-full overflow-x-clip text-[#263C32]">
 
-        50% {
-            transform: translateX(-6px);
-        }
+    {{-- HERO --}}
+    <section id="hiro" class="relative isolate min-h-[390px] sm:min-h-[460px] lg:min-h-[540px] w-full overflow-hidden bg-[#F5F0E6]">
 
-        100% {
-            transform: translateX(0);
-        }
-    }
-</style>
-@session('clearStorage')
-<script>
-    localStorage.clear();
-</script>
-@endsession
-<main class="w-full flex flex-col gap-15">
-    <section id="hiro" class="relative">
-        <div class="">
-            <img class="max-sm:h-70 object-cover" src="{{ asset('storage/'.$setting['heroBanner']) }}" alt="">
+        <img
+            src="{{ asset('storage/'.$setting['heroBanner']) }}"
+            alt="محصولات پشمی شهرپشم"
+            class="absolute inset-0 w-full h-full object-cover"
+        >
 
-        </div>
-        <div class="absolute flex flex-col gap-4 lg:gap-10 bottom-10 lg:bottom-13 lg:top-15 right-10 lg:right-35">
-            @php
-            $titleParts = explode('|', $setting['heroTitle']);
-            @endphp
-            <div class="flex flex-col gap-5">
-                @foreach($titleParts as $part)
-                <span class="font-bold text-2xl lg:text-7xl text-[#1E3F34]">
-                    {{ trim($part) }}
-                </span>
-                @endforeach
-            </div>
-            @php
-            $subTitleParts = explode('|', $setting['heroSubtitle']);
-            @endphp
-            <div class="flex flex-col gap-1">
-                @foreach($subTitleParts as $part)
-                <span class="text-[#1E3F34] font-medium text-md lg:text-xl">
-                    {{ trim($part) }}
-                </span>
-                @endforeach
-            </div>
+        <div class="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-l from-[#F5F0E6]/95 via-[#F5F0E6]/75 to-transparent"></div>
 
-            {{-- دکمه --}}
-            <div class="w-4/12 lg:w-5/12 p-1 lg:p-3 bg-[#1E3F34] flex justify-center items-center rounded-3xl gap-1 cursor-pointer groupMainBtn">
-                <span class="text-[10px] lg:text-lg text-white text-nowrap">{{ $setting['heroPrimaryButton'] }}</span>
-                <svg class="max-sm:w-[15px] transition-all duration-300" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                    viewBox="0 0 24 24" fill="none" stroke="#ffff" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M19 12H5M12 19l-7-7 7-7"></path>
-                </svg>
-            </div>
+        <div class="relative z-10 flex min-h-[390px] sm:min-h-[460px] lg:min-h-[540px] items-end sm:items-center px-[5%] py-8 sm:py-12">
 
-        </div>
-    </section>
-    <section id="category" class="w-full flex flex-col justify-center items-center gap-9">
-        <div class="w-11/12 flex justify-center lg:justify-start items-center gap-3">
-            <span class="w-10 h-[2px] lg:w-15 lg:h-[3px] bg-[#1E3F34]"></span>
-            <span class="font-bold text-md lg:text-2xl text-[#1E3F34]">دسته بندی محصولات</span>
-            <span class="lg:hidden w-10 h-[2px] bg-[#1E3F34]"></span>
-        </div>
-        <div class="w-11/12 grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-8">
-            @foreach ($categories as $cat)
-            @if ($cat->title != "بدون دسته بندی")
-            <div class="w-full rounded-2xl relative flex justify-center items-center">
-                <img
-                    class="block w-full h-40 md:h-50 object-cover rounded-2xl"
-                    src="{{ asset('storage/'.$cat->image) }}"
-                    alt="{{ $cat->title }}">
-                <img class="rounded-2xl h-40 md:h-50 object-cover lg:hidden" src="./assest/img/category01-sm.png" alt="">
-                <div class="absolute top-1/4 right-0 lg:top-7 lg:right-2 flex flex-col gap-3">
-                    <div class="flex flex-col gap-5 lg:gap-5 p-3">
-                        <span class="font-bold text-[#1E3F34] lg:text-2xl"> {{ $cat->title }} </span>
-                        <span class="text-sm lg:text-md text-[#1E3F34]/70 text-center lg:text-start font-bold"> {{ $cat->description }} </span>
-                    </div>
-                    <button class=" hidden lg:flex size-8 rounded-full bg-[#1E3F34] flex justify-center items-center mr-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22"
-                            height="22" viewBox="0 0 24 24" fill="none" stroke="#ffff"
-                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 12H5M12 19l-7-7 7-7"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            @endif
-            @endforeach
-        </div>
-    </section>
-    <section id="خدمات" class="w-full">
-        <div class="w-11/12 mx-auto gap-2.5 lg:gap-5 rounded-2xl grid grid-cols-1 md:grid-cols-4 py-5">
-            <div class="w-full flex justify-center items-center px-8 lg:gap-3 lg:border-l bg-[#1E3F34]/10 rounded-xl border-[#1E3F34]/30 py-2">
-                <div class="w-1/4">
-                    <img class="size-15" src="{{ asset('storage/'.$setting['serviceImage1']) }}" alt="">
-                </div>
-                <div class="w-3/4 flex flex-col gap-1 justify-center items-center">
-                    <span class="font-bold text-xl text-[#1E3F34]">{{ $setting['serviceTitle1'] }} </span>
-                    <span class="text-[#1E3F34] font-medium text-sm"> {{ $setting['serviceSubTitle1'] }} </span>
-                </div>
-            </div>
-            <div class="w-full flex justify-center items-center px-8 lg:gap-3 lg:border-l bg-[#1E3F34]/10 rounded-xl border-[#1E3F34]/30 py-2">
-                <div class="w-1/4">
-                    <img class="size-15" src="{{ asset('storage/'.$setting['serviceImage2']) }}" alt="">
-                </div>
-                <div class="w-3/4 flex flex-col gap-1 justify-center items-center">
-                    <span class="font-bold text-xl text-[#1E3F34]">{{ $setting['serviceTitle2'] }} </span>
-                    <span class="text-[#1E3F34] font-medium text-sm"> {{ $setting['serviceSubTitle2'] }} </span>
-                </div>
-            </div>
-            <div class="w-full flex justify-center items-center px-8 lg:gap-3 lg:border-l bg-[#1E3F34]/10 rounded-xl border-[#1E3F34]/30 py-2">
-                <div class="w-1/4">
-                    <img class="size-15" src="{{ asset('storage/'.$setting['serviceImage3']) }}" alt="">
-                </div>
-                <div class="w-3/4 flex flex-col gap-1 justify-center items-center">
-                    <span class="font-bold text-xl text-[#1E3F34]">{{ $setting['serviceTitle3'] }} </span>
-                    <span class="text-[#1E3F34] font-medium text-sm"> {{ $setting['serviceSubTitle3'] }} </span>
-                </div>
-            </div>
-            <div class="w-full flex justify-center items-center px-8 lg:gap-3 lg:border-l bg-[#1E3F34]/10 rounded-xl border-[#1E3F34]/30 py-2">
-                <div class="w-1/4">
-                    <img class="size-15" src="{{ asset('storage/'.$setting['serviceImage4']) }}" alt="">
-                </div>
-                <div class="w-3/4 flex flex-col gap-1 justify-center items-center">
-                    <span class="font-bold text-xl text-[#1E3F34]">{{ $setting['serviceTitle4'] }}</span>
-                    <span class="text-[#1E3F34] font-medium text-sm"> {{ $setting['serviceSubTitle4'] }} </span>
-                </div>
-            </div>
+            <div class="flex w-full sm:w-3/5 lg:w-[45%] flex-col items-start gap-4 sm:gap-6">
 
-        </div>
-    </section>
-    <section id="about" class="w-full flex flex-col justify-center items-center relative">
-        <div class="w-11/12">
-            <img class="h-90 w-full rounded-2xl object-cover" src="{{ asset('storage/'.$setting['secondBanner']) }}" alt="">
-        </div>
-        <div class="w-11/12 absolute lg:justify-center items-center flex">
-            <div class="flex flex-col gap-4 lg:gap-3 p-3 w-4/12">
-                <div class="flex justify-start items-center gap-1 lg:gap-5">
-                    <span class="w-10 h-[2px] bg-[#1E3F34]"></span>
-                    <span class="text-[#1E3F34] lg:text-2xl text-nowrap font-semibold">درباره ما</span>
+                @php
+                    $titleParts = explode('|', $setting['heroTitle']);
+                    $subTitleParts = explode('|', $setting['heroSubtitle']);
+                @endphp
+
+                <h1 class="flex flex-col gap-1 text-3xl sm:text-4xl lg:text-6xl font-black leading-[1.6] text-[#1E3F34]">
+                    @foreach($titleParts as $part)
+                        <span>{{ trim($part) }}</span>
+                    @endforeach
+                </h1>
+
+                <div class="flex flex-col gap-1 text-xs sm:text-sm lg:text-base leading-8 text-[#46594D]">
+                    @foreach($subTitleParts as $part)
+                        <span>{{ trim($part) }}</span>
+                    @endforeach
                 </div>
-                <h3 class="text-[#1E3F34] text-lg lg:text-3xl font-bold">{{ $setting['secondBannerTitle'] }} </h3>
-                <p class="whitespace-pre-line leading-8 font-medium text-sm lg:text-lg">
-                    {{ $setting['secondBannerSubtitle'] }}
-                </p>
-                <div class="text-nowrap w-32 max-sm:text-sm rounded-3xl flex gap-2 border border[#1E3F34] justify-center items-center py-1 lg:py-2 lg:mt-3">
-                    <button>{{ $setting['secondBannerButton'] }}</button>
-                    <svg class="" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                        viewBox="0 0 24 24" fill="none" stroke="#1E3F34" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+
+                <a href="{{ route('product.index') }}"
+                   class="inline-flex items-center gap-3 rounded-xl bg-[#1E3F34] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#1E3F34]/15 transition hover:-translate-y-1 hover:bg-[#142E26]">
+
+                    {{ $setting['heroPrimaryButton'] }}
+
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
                     </svg>
-                </div>
+                </a>
+
             </div>
-            <div class="w-4/12 "></div>
         </div>
     </section>
-    <section id="محبوب ترین محصولات" class="w-full flex flex-col justify-center gap-8 items-center">
-        <div class="w-11/12 flex gap-1 justify-start items-center">
-            <span class="w-12 h-[3px] bg-[#1E3F34]"></span>
-            <span class="text-[#1E3F34] font-bold text-2xl">محبوب ترین محصولات</span>
-        </div>
-        <div class="w-11/12  grid grid-cols-2 md:grid-cols-5 gap-3">
-            @foreach ($products as $product)
-            <div class="w-full flex flex-col rounded-2xl border border-[#1E3F34]/20 products" data-product-id="{{ $product->id }}">
-                <a href="{{ route('product.show', [$product->id]) }}" class="w-full h-40">
-                    <img class="object-cover w-full h-40 rounded-t-2xl" src="{{ asset('storage/'.$product->image) }}" alt="">
-                </a>
-                <div class="flex flex-col gap-3 p-3">
-                    <a href="{{ route('product.show', [$product->id]) }}" class="text-[#1E3F34] font-bold text-xl h-8 max-h-8 overflow-hidden ellipsis-2"> {{ $product->title }} </a>
-                    {{-- <div class="flex items-center gap-1">--}}
-                    {{-- <span class="text-yellow-400 text-xl">★</span>--}}
-                    {{-- <span class="text-yellow-400 text-xl">★</span>--}}
-                    {{-- <span class="text-yellow-400 text-xl">★</span>--}}
-                    {{-- <span class="text-yellow-400 text-xl">★</span>--}}
-                    {{-- <span class="text-gray-300 text-xl">★</span>--}}
-                    {{-- </div>--}}
-                    @if($product->secondary_price)
-                    <div class="flex flex-row gap-3">
-                        <span class="text-[#1E3F34] font-bold in-fa">{{ $product->secondary_price }}تومان</span>
-                        <span class="text-[#1E3F34]/80 line-through in-fa">{{ $product->secondary_price }}تومان</span>
-                    </div>
-                    @else
-                    <span class="text-[#1E3F34] font-bold in-fa">{{ $product->primary_price }}تومان</span>
-                    @endif
-                    {{-- <button onclick="addToCart(this)" class="w-full p-2 bg-[#1E3F34] rounded-2xl text-white">افزودن به سبد خرید--}}
-                    {{-- </button>--}}
-                    <div class="w-full h-12 addToCartBtns" data-product-id="{{ $product->id }}">
-                        @if ($product->count > 0)
-                            <button onclick="addToCart(this)" class="w-full px-4 h-full bg-(--light-green-btn) flex gap-2 justify-center items-center rounded-xl transition-all duration-300 hover:bg-(--green-btn) cursor-pointer group">
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
-                                        class="lg:size-4 size-3 transition-all duration-300 group-hover:fill-white fill-(--primary-text-color)">
-                                        <path
-                                            d="M16 0H0V32H16 67.2l77.2 339.5 2.8 12.5H160 496h16V352H496 172.8l-14.5-64H496L566 64l10-32H542.5 100L95.6 12.5 92.8 0H80 16zm91.3 64H532.5l-60 192H151L107.3 64zM184 432a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm0 80a56 56 0 1 0 0-112 56 56 0 1 0 0 112zm248-56a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm80 0a56 56 0 1 0 -112 0 56 56 0 1 0 112 0z">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <span class="lg:text-sm text-[10px] text-(--primary-text-color) transition-all duration-300 group-hover:text-white font-bold">افزودن به سبد خرید</span>
-                            </button>
-                        @else
-                            <button
-                                    class="w-full px-4 h-full bg-(--pastel-pink) flex gap-2 justify-center items-center rounded-xl relative after:absolute after:w-full after:h-full after:content-[''] after:top-0 after:right-0 after:bg-white/30 after:rounded-xl transition-all duration-300 hover:bg-(--discount-color) cursor-no-drop group"
-                                    >
-                                <span class="lg:text-sm text-[10px] text-white font-bold transition-all duration-300">عدم موجودی</span>
-                            </button>    
-                        @endif
-                        {{-- @endif --}}
-                    </div>
-                </div>
+
+
+    {{-- CATEGORIES --}}
+    <section id="category" class="py-10 sm:py-14 lg:py-16">
+
+        <div class="w-[92%] max-w-[1440px] mx-auto">
+
+            <div class="flex items-center gap-3 mb-6 sm:mb-9">
+                <span class="w-8 sm:w-11 h-1 rounded-full bg-[#C6A77D]"></span>
+                <h2 class="text-xl sm:text-2xl lg:text-3xl font-black text-[#1E3F34]">
+                    دسته‌بندی محصولات
+                </h2>
             </div>
 
-            @endforeach
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+
+                @foreach ($categories as $cat)
+                    @if ($cat->title != "بدون دسته بندی")
+
+                        <a href="{{ route('product.index') }}"
+                           class="group relative isolate h-[180px] sm:h-[220px] lg:h-[250px] overflow-hidden rounded-2xl sm:rounded-3xl bg-[#F5F0E6]">
+
+                            <img
+                                src="{{ asset('storage/'.$cat->image) }}"
+                                alt="{{ $cat->title }}"
+                                loading="lazy"
+                                class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110"
+                            >
+
+                            <div class="absolute inset-0 bg-gradient-to-l from-[#F5F0E6]/95 via-[#F5F0E6]/75 to-transparent"></div>
+
+                            <div class="absolute inset-y-0 right-0 flex w-[70%] flex-col items-start justify-center gap-3 p-5 sm:p-6">
+
+                                <h3 class="text-lg sm:text-xl font-black text-[#1E3F34]">
+                                    {{ $cat->title }}
+                                </h3>
+
+                                <p class="line-clamp-2 text-xs sm:text-sm leading-7 text-[#526258]">
+                                    {{ $cat->description }}
+                                </p>
+
+                                <span class="flex h-9 w-9 items-center justify-center rounded-full bg-[#1E3F34] text-white transition group-hover:bg-[#C6A77D] group-hover:-translate-x-1">
+                                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                                    </svg>
+                                </span>
+
+                            </div>
+                        </a>
+
+                    @endif
+                @endforeach
+
+            </div>
         </div>
     </section>
-    </br>
-    </br>
+
+
+    {{-- SERVICES --}}
+    <section id="خدمات" class="bg-[#F5F0E6] py-6 sm:py-9">
+
+        <div class="w-[92%] max-w-[1440px] mx-auto">
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+
+                @for($i = 1; $i <= 4; $i++)
+
+                    <div class="flex items-center gap-3 sm:gap-4 min-w-0 p-2 sm:p-4">
+
+                        <div class="flex h-11 w-11 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-white p-2.5 shadow-sm">
+                            <img
+                                src="{{ asset('storage/'.$setting['serviceImage'.$i]) }}"
+                                alt=""
+                                loading="lazy"
+                                class="w-full h-full object-contain"
+                            >
+                        </div>
+
+                        <div class="min-w-0">
+                            <h3 class="text-xs sm:text-sm font-extrabold text-[#1E3F34] leading-6">
+                                {{ $setting['serviceTitle'.$i] }}
+                            </h3>
+
+                            <p class="mt-1 text-[10px] sm:text-xs leading-6 text-[#7C887F]">
+                                {{ $setting['serviceSubTitle'.$i] }}
+                            </p>
+                        </div>
+
+                    </div>
+
+                @endfor
+
+            </div>
+        </div>
+    </section>
+
+
+    {{-- ABOUT --}}
+    <section id="about" class="py-10 sm:py-14 lg:py-16">
+
+        <div class="w-[92%] max-w-[1440px] mx-auto">
+
+            <div class="relative isolate min-h-[390px] sm:min-h-[400px] overflow-hidden rounded-2xl sm:rounded-3xl bg-[#F5F0E6]">
+
+                <img
+                    src="{{ asset('storage/'.$setting['secondBanner']) }}"
+                    alt="درباره شهرپشم"
+                    loading="lazy"
+                    class="absolute inset-0 w-full h-full object-cover"
+                >
+
+                <div class="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-l from-[#F5F0E6]/95 via-[#F5F0E6]/85 to-transparent"></div>
+
+                <div class="relative z-10 flex min-h-[390px] sm:min-h-[400px] w-full sm:w-[65%] lg:w-[55%] flex-col items-start justify-end sm:justify-center p-5 sm:p-10 lg:p-14">
+
+                    <div class="flex items-center gap-3">
+                        <span class="h-1 w-9 rounded-full bg-[#C6A77D]"></span>
+                        <span class="text-sm font-bold text-[#1E3F34]">درباره شهرپشم</span>
+                    </div>
+
+                    <h2 class="my-4 text-2xl sm:text-3xl lg:text-4xl font-black leading-[1.8] text-[#1E3F34]">
+                        {{ $setting['secondBannerTitle'] }}
+                    </h2>
+
+                    <p class="text-xs sm:text-sm leading-8 text-[#4F6055] whitespace-pre-line">
+                        {{ $setting['secondBannerSubtitle'] }}
+                    </p>
+
+                    <a href="{{ route('aboutUs.list') }}"
+                       class="mt-5 inline-flex items-center gap-3 rounded-xl bg-[#1E3F34] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#142E26]">
+
+                        {{ $setting['secondBannerButton'] }}
+
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {{-- POPULAR PRODUCTS --}}
+    <section id="محبوب ترین محصولات" class="pb-12 sm:pb-16 lg:pb-20">
+
+        <div class="w-[92%] max-w-[1440px] mx-auto">
+
+            <div class="flex items-center justify-between gap-3 mb-6 sm:mb-9">
+                <div class="flex items-center gap-3">
+                    <span class="w-8 sm:w-11 h-1 rounded-full bg-[#C6A77D]"></span>
+                    <h2 class="text-xl sm:text-2xl lg:text-3xl font-black text-[#1E3F34]">
+                        محبوب‌ترین محصولات
+                    </h2>
+                </div>
+
+                <a href="{{ route('product.index') }}"
+                   class="shrink-0 text-xs sm:text-sm font-bold text-[#1E3F34] hover:text-[#9B7A50] transition">
+                    مشاهده همه
+                    ←
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-5">
+
+                @foreach ($products as $product)
+
+                    <div class="products group min-w-0 overflow-hidden rounded-xl sm:rounded-2xl border border-[#1E3F34]/10 bg-white transition duration-300 hover:-translate-y-1.5 hover:border-[#C6A77D]/60 hover:shadow-xl hover:shadow-[#1E3F34]/10"
+                         data-product-id="{{ $product->id }}">
+
+                        <a href="{{ route('product.show', [$product->id]) }}"
+                           class="relative block h-[155px] sm:h-[190px] lg:h-[220px] overflow-hidden bg-[#F5F0E6]">
+
+                            <img
+                                src="{{ asset('storage/'.$product->image) }}"
+                                alt="{{ $product->title }}"
+                                loading="lazy"
+                                class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                            >
+                        </a>
+
+                        <div class="flex flex-col gap-3 p-3 sm:p-4">
+
+                            <a href="{{ route('product.show', [$product->id]) }}"
+                               class="line-clamp-2 min-h-[44px] text-xs sm:text-sm font-extrabold leading-7 text-[#1E3F34] transition hover:text-[#9B7A50]">
+                                {{ $product->title }}
+                            </a>
+
+                            <div class="flex flex-wrap items-center gap-2 min-h-6">
+
+                                @if($product->secondary_price)
+
+                                    <strong class="in-fa text-xs sm:text-sm font-black text-[#1E3F34]">
+                                        {{ number_format($product->secondary_price) }}
+                                        تومان
+                                    </strong>
+
+                                    <del class="in-fa text-[10px] sm:text-xs text-gray-400">
+                                        {{ number_format($product->primary_price) }}
+                                        تومان
+                                    </del>
+
+                                @else
+
+                                    <strong class="in-fa text-xs sm:text-sm font-black text-[#1E3F34]">
+                                        {{ number_format($product->primary_price) }}
+                                        تومان
+                                    </strong>
+
+                                @endif
+
+                            </div>
+
+                            <div class="addToCartBtns"
+                                 data-product-id="{{ $product->id }}">
+
+                                @if ($product->count > 0)
+
+                                    <button
+                                        onclick="addToCart(this)"
+                                        class="flex w-full min-h-10 items-center justify-center gap-2 rounded-xl bg-[#EAF0E9] px-2 py-2.5 text-[10px] sm:text-xs font-extrabold text-[#1E3F34] transition hover:bg-[#1E3F34] hover:text-white">
+
+                                        <svg class="h-4 w-4 shrink-0 fill-current" viewBox="0 0 576 512">
+                                            <path d="M16 0H0V32H16 67.2l77.2 339.5 2.8 12.5H160 496h16V352H496 172.8l-14.5-64H496L566 64l10-32H542.5 100L95.6 12.5 92.8 0H80 16zm91.3 64H532.5l-60 192H151L107.3 64zM184 432a24 24 0 1 1 0 48 24 24 0 0 1 0-48zm0 80a56 56 0 1 0 0-112 56 56 0 0 0 0 112zm248-56a24 24 0 1 1 48 0 24 24 0 0 1-48 0zm80 0a56 56 0 1 0-112 0 56 56 0 0 0 112 0z"/>
+                                        </svg>
+
+                                        افزودن به سبد خرید
+                                    </button>
+
+                                @else
+
+                                    <button
+                                        class="flex w-full min-h-10 items-center justify-center rounded-xl bg-red-50 px-2 py-2.5 text-xs font-bold text-red-600 cursor-not-allowed"
+                                        disabled>
+                                        عدم موجودی
+                                    </button>
+
+                                @endif
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                @endforeach
+
+            </div>
+        </div>
+    </section>
+
 </main>
+
 @endsection
