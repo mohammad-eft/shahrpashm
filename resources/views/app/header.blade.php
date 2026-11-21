@@ -397,8 +397,8 @@
                             class="w-full py-2 bg-(--green-btn) rounded-xl gradient_item flex gap-3 justify-start items-center px-4">
                             <span class="xl:text-lg text-white font-bold">دسته بندی ها</span>
                         </a>
+                        <a href="{{ route('contactUs.create') }}"
 
-                        <a href="{{ route('contactUs.list') }}"
                             class="w-full py-2 bg-(--green-btn) rounded-xl gradient_item flex gap-3 justify-start items-center px-4">
                             <span class="xl:text-lg text-white font-bold">تماس باما</span>
                         </a>
