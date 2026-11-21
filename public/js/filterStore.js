@@ -47,17 +47,17 @@ function getFilters() {
     
                         elements+=`
                             <div class="flex items-center justify-between gap-2">
-                                <strong class="text-[15px] in-fa">${ product.secondary_price }</strong>
+                                <strong class="text-[15px] in-fa">${ product.secondary_price.toLocaleString('fa-IR') }</strong>
                                 <span
                                     class="text-[10px] text-[#71717a]">تومان
                                 </span>
                             </div>
-                            <div class="line-through text-[#a1a1aa] text-[10px] in-fa">${ product.primary_price } تومان</div>
+                            <div class="line-through text-[#a1a1aa] text-[10px] in-fa">${ product.primary_price.toLocaleString('fa-IR') } تومان</div>
                         `
                     } else {
                         elements += `
                         <div class= "flex items-center justify-between gap-2" >
-                            <strong class="text-[15px] in-fa">${ product.primary_price }</strong>
+                            <strong class="text-[15px] in-fa">${ product.primary_price.toLocaleString('fa-IR') }</strong>
                             <span
                                 class="text-[10px] text-[#71717a]">تومان
                             </span>
@@ -172,6 +172,7 @@ resetFilters.addEventListener('click', ()=>{
         'page': 1,
         'category': null,
     }
+    console.log('reset filters')
     sortBtn.forEach((btn, index) => {
         if(index == 0){
             btn.classList.remove('text-[#52525b]')

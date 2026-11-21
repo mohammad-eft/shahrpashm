@@ -92,50 +92,6 @@ function number_order(item) {
     }
 }
 
-//! category children on menu mr.olyafam
-// let mainCats = document.querySelectorAll('.mainCat')
-// mainCats.forEach((cat) => {
-//     cat.addEventListener('click', () => {
-//         mainCats.forEach((el) => {
-//             el.classList.remove('bg-[var(--background)]', 'border-[var(--gold)]')
-//             el.children[0].children[0].classList.remove('text-[var(--gold)]')
-//             el.children[0].children[0].classList.add('text-[var(--text)]')
-//             el.children[1].children[0].classList.remove('fill-[var(--gold)]')
-//             el.children[1].children[0].classList.add('fill-[var(--text)]')
-//         })
-//         cat.classList.add('bg-[var(--background)]', 'border-[var(--gold)]')
-//         cat.children[0].children[0].classList.remove('text-[var(--text)]')
-//         cat.children[0].children[0].classList.add('text-[var(--gold)]')
-//         cat.children[1].children[0].classList.remove('fill-[var(--text)]')
-//         cat.children[1].children[0].classList.add('fill-[var(--gold)]')
-//         let id = cat.getAttribute('id')
-//         fetchSubCats(id)
-//     })
-// })
-
-
-// function fetchSubCats(id) {
-//     $.ajaxSetup({
-//         headers: {
-//             'X-CSRF-TOKEN': csrfToken
-//         }
-//     })
-//     $.ajax({
-//         url: route,
-//         type: "POST",
-//         dataType: "json",
-//         data: {
-//             'catId': id,
-//         },
-//         success: function (data) {
-//             console.log(data);
-//         },
-//         error: function () {
-//             alert('error')
-//         }
-//     })
-// }
-
 let filter_product_list = document.querySelectorAll('.filter_product_list')
 filter_product_list.forEach((item) => {
     item.addEventListener('click', function () {
@@ -179,16 +135,17 @@ let main = document.getElementById('main')
 let header = document.querySelector('header')
 let mt = 'lg:mt-[' + topBanner.clientHeight + 'px]'
 headerMenu.classList.add(mt)
-main.classList.add('lg:mt-[' + (parseInt(header.clientHeight)+80) + 'px]', 'mt-[' + headerMenu.clientHeight + 'px]')
+let margintop = parseInt(headerMenu.clientHeight)+40
+main.classList.add('lg:mt-[' + (parseInt(header.clientHeight)+80) + 'px]', 'mt-[' + margintop + 'px]')
 
 window.addEventListener('scroll', () => {
     headerMenu = document.getElementById('headerMenu')
     if (window.scrollY > 80) {  
         headerMenu.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)'
-        main.classList.remove('lg:mt-[' + (parseInt(header.clientHeight)+80) + 'px]', 'mt-[' + headerMenu.clientHeight + 'px]')
+        main.classList.remove('lg:mt-[' + (parseInt(header.clientHeight)+80) + 'px]', 'mt-[' + margintop + 'px]')
         headerMenu.classList.remove(mt)
     } else {
-        main.classList.add('lg:mt-[' + (parseInt(header.clientHeight)+80) + 'px]', 'mt-[' + headerMenu.clientHeight + 'px]')
+        main.classList.add('lg:mt-[' + (parseInt(header.clientHeight)+80) + 'px]', 'mt-[' + margintop + 'px]')
         header.style.boxShadow = 'none'
         headerMenu.classList.add(mt)
     }
