@@ -46,6 +46,29 @@
                 </a>
             </div>
             <hr class="text-[darkslategray] mt-2.5">
+            <div class="py-3">
+                <div class="flex items-center gap-3 px-3 py-2 text-white">
+                    <a href="{{ route('user.profile') }}"
+                        class="flex items-center gap-2.5 w-full py-1
+                        @if (Route::is('user.profile')) text-[#FF0000] @endif">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="size-5">
+
+                            <path d="M20 21a8 8 0 0 0-16 0" />
+                            <circle cx="12" cy="8" r="4" />
+                        </svg>
+
+                        <span>حساب کاربری</span>
+                    </a>
+                </div>
+            </div>
             <div class="py-3 h-[80%] overflow-y-auto flex flex-col gap-3" style="scrollbar-width: none;">
                 @can('access', ['admin'])
                  
@@ -250,42 +273,56 @@
                         </div>
                     </div>
                    
-                
                 <div class="pb-3">
                     <div
-                        class="arrow-down cursor-pointer flex justify-between items-center flex-row-reverse py-1 px-3 rounded-md @if (Route::is('user.*')) bg-[#383c4d] @endif">
+                        class="arrow-down cursor-pointer flex justify-between items-center flex-row-reverse py-1 px-3 rounded-md @if (Route::is('user.*') && !Route::is('user.profile')) bg-[#383c4d] @endif">
+
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="size-6 fill-white w-[15px] transition-all duration-300 @if (Route::is('user.*')) rotate-180 @endif">
+                            class="size-6 fill-white w-[15px] transition-all duration-300 @if (Route::is('user.*') && !Route::is('user.profile')) rotate-180 @endif">
+
                             <path fill-rule="evenodd"
                                 d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
                                 clip-rule="evenodd" />
                         </svg>
+
                         <div class="flex flex-row-reverse items-center gap-2 text-white">
                             <span class="flex justify-end">کاربران</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="size-5 fill-white">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
+                                class="size-5 fill-white">
                                 <path
                                     d="M224 48a80 80 0 1 1 0 160 80 80 0 1 1 0-160zm0 208A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 96h91.4c65.7 0 120.1 48.7 129 112H49.3c8.9-63.3 63.3-112 129-112zm0-48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3zm431 208c17 0 30.7-13.8 30.7-30.7C640 392.2 567.8 320 478.7 320H417.3c-4.4 0-8.8 .2-13.2 .5c46.4 38.6 75.9 96.7 75.9 161.8c0 10.8-2.8 20.9-7.6 29.7H609.3zM432 256c61.9 0 112-50.1 112-112s-50.1-112-112-112c-24.8 0-47.7 8.1-66.3 21.7C377.4 75.9 384 101.2 384 128c0 35.6-11.6 68.5-31.3 95.1C373 243.4 401 256 432 256z" />
                             </svg>
                         </div>
                     </div>
-                    <div class="overflow-y-auto transition-all duration-300 @if (Route::is('user.*')) max-h-100 @else max-h-0 @endif"
+
+                    <div class="overflow-y-auto transition-all duration-300 @if (Route::is('user.*') && !Route::is('user.profile')) max-h-100 @else max-h-0 @endif"
                         style="scrollbar-width: none;">
+
                         <ul class="gap-2.5 pr-3">
+
                             @can('access', ['admin'])
-                               
+
                                 <li class="flex flex-row items-center gap-2.5 mt-2.5 mb-2.5 mr-5 text-white">
                                     <span class="size-1 bg-white rounded-sm"></span>
-                                    <a href="{{ route('user.list') }}"
-                                        class="py-1 @if (Route::is('user.list')) text-[#FF0000] @endif">لیست
-                                        کاربران</a>
+
+                                    <a href="{{ route('user.create_user') }}"
+                                        class="py-1 @if (Route::is('user.create_user')) text-[#FF0000] @endif">
+                                        ایجاد کاربر جدید
+                                    </a>
                                 </li>
+
+                                <li class="flex flex-row items-center gap-2.5 mt-2.5 mb-2.5 mr-5 text-white">
+                                    <span class="size-1 bg-white rounded-sm"></span>
+
+                                    <a href="{{ route('user.list') }}"
+                                        class="py-1 @if (Route::is('user.list')) text-[#FF0000] @endif">
+                                        لیست کاربران
+                                    </a>
+                                </li>
+
                             @endcan
-                            <li class="flex flex-row items-center gap-2.5 mt-2.5 mb-2.5 mr-5 text-white">
-                                <span class="size-1 bg-white rounded-sm"></span>
-                                <a href="{{ route('user.profile') }}"
-                                    class="py-1 @if (Route::is('user.profile')) text-[#FF0000] @endif">حساب
-                                    کاربری</a>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -381,6 +418,29 @@
                     </a>
                 </div>
                 <hr class="text-[darkslategray] mt-2.5">
+                <div class="py-3">
+                    <div class="flex items-center gap-3 px-3 py-2 text-white">
+                        <a href="{{ route('user.profile') }}"
+                            class="flex items-center gap-2.5 w-full py-1
+                            @if (Route::is('user.profile')) text-[#FF0000] @endif">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="size-5">
+
+                                <path d="M20 21a8 8 0 0 0-16 0" />
+                                <circle cx="12" cy="8" r="4" />
+                            </svg>
+
+                            <span>حساب کاربری</span>
+                        </a>
+                    </div>
+                </div>
                 <div class="py-5 h-[91%] lg:h-[80%] overflow-y-auto flex flex-col gap-3" style="scrollbar-width: none;">
                     @can('access', ['admin'])
                      
@@ -584,18 +644,21 @@
                             </div>
                         </div>
                         
-                    
                     <div class="pb-3">
                         <div
-                            class="arrow-down cursor-pointer flex justify-between items-center flex-row-reverse py-1 px-3 rounded-md @if (Route::is('user.*')) bg-[#383c4d] @endif">
+                            class="arrow-down cursor-pointer flex justify-between items-center flex-row-reverse py-1 px-3 rounded-md @if (Route::is('user.*') && !Route::is('user.profile')) bg-[#383c4d] @endif">
+
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="size-6 fill-white w-[15px] transition-all duration-300 @if (Route::is('user.*')) rotate-180 @endif">
+                                class="size-6 fill-white w-[15px] transition-all duration-300 @if (Route::is('user.*') && !Route::is('user.profile')) rotate-180 @endif">
+
                                 <path fill-rule="evenodd"
                                     d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
                                     clip-rule="evenodd" />
                             </svg>
+
                             <div class="flex flex-row-reverse items-center gap-2 text-white">
                                 <span class="flex justify-end">کاربران</span>
+
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
                                     class="size-5 fill-white">
                                     <path
@@ -603,24 +666,34 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="overflow-y-auto transition-all duration-300 @if (Route::is('user.*')) max-h-100 @else max-h-0 @endif"
+
+                        <div class="overflow-y-auto transition-all duration-300 @if (Route::is('user.*') && !Route::is('user.profile')) max-h-100 @else max-h-0 @endif"
                             style="scrollbar-width: none;">
+
                             <ul class="gap-2.5 pr-3">
+
                                 @can('access', ['admin'])
-                                   
+
                                     <li class="flex flex-row items-center gap-2.5 mt-2.5 mb-2.5 mr-5 text-white">
                                         <span class="size-1 bg-white rounded-sm"></span>
-                                        <a href="{{ route('user.list') }}"
-                                            class="py-1 @if (Route::is('user.list')) text-[#FF0000] @endif">لیست
-                                            کاربران</a>
+
+                                        <a href="{{ route('user.create_user') }}"
+                                            class="py-1 @if (Route::is('user.create_user')) text-[#FF0000] @endif">
+                                            ایجاد کاربر جدید
+                                        </a>
                                     </li>
+
+                                    <li class="flex flex-row items-center gap-2.5 mt-2.5 mb-2.5 mr-5 text-white">
+                                        <span class="size-1 bg-white rounded-sm"></span>
+
+                                        <a href="{{ route('user.list') }}"
+                                            class="py-1 @if (Route::is('user.list')) text-[#FF0000] @endif">
+                                            لیست کاربران
+                                        </a>
+                                    </li>
+
                                 @endcan
-                                <li class="flex flex-row items-center gap-2.5 mt-2.5 mb-2.5 mr-5 text-white">
-                                    <span class="size-1 bg-white rounded-sm"></span>
-                                    <a href="{{ route('user.profile') }}"
-                                        class="py-1 @if (Route::is('user.profile')) text-[#FF0000] @endif">حساب
-                                        کاربری</a>
-                                </li>
+
                             </ul>
                         </div>
                     </div>
