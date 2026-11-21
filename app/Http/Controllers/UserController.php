@@ -100,7 +100,7 @@ class UserController extends Controller
                 }
             }
             if(isset($request->code)){
-                $phoneCode = phone_code::where('phoneNumber', $request->phoneNumber)->whereNotNull('password')->first();
+                $phoneCode = phone_code::where('phoneNumber', $request->phoneNumber)->first();
                 if($phoneCode){
                     if($phoneCode->code == $request->code){
                         $user->role;
