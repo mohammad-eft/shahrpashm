@@ -166,7 +166,7 @@
                         @foreach ($product->media as $media)
                         @if ($media->is_main)
                         @if ($media->media_path)
-                        <img class="w-full rounded-large overflow-hidden inline-block gallery_pack_single_primary_img h-full object-cover"
+                        <img class="w-full rounded-large overflow-hidden inline-block gallery_pack_single_primary_img h-full object-cover main-gallery-image"
                             src="{{ asset('/storage/' . $media->media_path) }}" alt="product image">
                         @else
                         <img class="w-full rounded-large overflow-hidden inline-block"
@@ -180,7 +180,7 @@
                         @foreach ($product->media as $media)
                         @if ($media->is_main)
                         @if ($media->media_path)
-                        <img class="w-full rounded-large overflow-hidden inline-block gallery_pack_single_primary_img h-full object-cover"
+                        <img class="w-full rounded-large overflow-hidden inline-block gallery_pack_single_primary_img h-full object-cover main-gallery-image"
                             src="{{ asset('/storage/' . $media->media_path) }}" alt="product image">
                         @else
                         <img class="w-full rounded-large overflow-hidden inline-block"
@@ -192,15 +192,30 @@
                 </div>
                 <div class="w-full overflow-x-auto touch-pan-x" style="scrollbar-width:none;">
                     <div class="flex flex-row items-center mt-5 mb-3 ">
+                        {{-- عکس اصلی محصول --}}
                         @foreach ($product->media as $media)
-                        @if (!$media->is_main)
-                        <div class="cursor-pointer rounded border border-(--color-border)    p-1 ml-2">
-                            <div class="w-[72px] h-[72px] gallery_pack_single">
-                                <img class="size-full object-cover"
-                                    src="{{ asset('storage/' . $media->media_path) }}" alt="">
-                            </div>
-                        </div>
-                        @endif
+                            @if ($media->is_main)
+                                <div onclick="changeMainImage(this)"
+                                    class="cursor-pointer rounded border border-(--color-border) p-1 ml-2">
+                                    <div class="w-[72px] h-[72px] gallery_pack_single">
+                                        <img class="size-full object-cover"
+                                            src="{{ asset('storage/' . $media->media_path) }}" alt="">
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+
+                        {{-- سایر عکس‌های محصول --}}
+                        @foreach ($product->media as $media)
+                            @if (!$media->is_main)
+                                <div onclick="changeMainImage(this)"
+                                    class="cursor-pointer rounded border border-(--color-border) p-1 ml-2">
+                                    <div class="w-[72px] h-[72px] gallery_pack_single">
+                                        <img class="size-full object-cover"
+                                            src="{{ asset('storage/' . $media->media_path) }}" alt="">
+                                    </div>
+                                </div>
+                            @endif
                         @endforeach
 
                     </div>
@@ -2932,6 +2947,19 @@
 </div>
 <script>
     let productId = "{{ $product->id }}"
+</script>
+<script>
+    function changeMainImage(element) {
+        const selectedImage = element.querySelector('img');
+
+        if (!selectedImage) return;
+
+        const selectedImageSrc = selectedImage.src;
+
+        document.querySelectorAll('.main-gallery-image').forEach(function(image) {
+            image.src = selectedImageSrc;
+        });
+    }
 </script>
 <script src="{{ asset('js/singleProduct.js') }}"></script>
 @endsection
