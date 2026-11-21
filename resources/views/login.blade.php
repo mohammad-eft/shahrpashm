@@ -140,7 +140,9 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                                         </svg>
                                     </span>
-                                    <input type="number"
+                                    <input type="text"
+                                        inputmode="numeric"
+                                        autocomplete="one-time-code"
                                         class="w-full pr-10 pl-4 py-3 rounded-xl border-2 @error('code') border-red-500 @enderror border-gray-200 focus:border-purple-500 focus:ring-0 focus:outline-none transition-all duration-300 hover:border-[#1E3F34]/30 bg-gray-50/50"
                                         name="code"
                                         id="code"
@@ -260,7 +262,7 @@
 
     password = document.getElementById('password');
     code = document.getElementById('code');
-
+     
     if (phoneNumber.value == '') {
         openMessage('وارد کردن شماره تلفن الزامی است');
         return;

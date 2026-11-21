@@ -393,6 +393,7 @@ class UserController extends Controller
         $flag = false;
         $phoneCode = phone_code::where('phoneNumber', $request->phoneNumber)->first();
         if($phoneCode){
+            
             if($phoneCode->code == $request->code){
                 $flag = true;
             }
