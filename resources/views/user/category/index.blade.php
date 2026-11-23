@@ -27,7 +27,7 @@
                         src="{{ $category->image ? asset('storage/'.$category->image) : asset('storage/default.jpg') }}"
                         onerror="this.onerror=null;this.src='{{ asset('storage/default.jpg') }}';"
                         alt="{{ $category->title }}"
-                        class="w-full h-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     >
 
                 </div>
