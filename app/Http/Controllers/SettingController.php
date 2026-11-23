@@ -256,15 +256,17 @@ class SettingController extends Controller
         $categories = category::all();
         // $products = product::where('show_in_home', 1)->weherNotNull('secondary_price')->get();
         // $products = product::where('show_in_home', 1)->get();
-        $products = product::where('show_in_home', 1)
-            ->withSum([
-                'carts as sold_quantity' => function ($query) {
-                    $query->whereNotNull('order_id');
-                }
-            ], 'quantity')
-            ->orderByDesc('sold_quantity')
+        $products = product::where('show_in_home', 1)->get();
+
+        $newProducts = product::where('count', '>', 0)
+            ->withCount(['carts' => function ($q) {
+                $q->whereNotNull('order_id');
+            }])
+            ->orderBy('carts_count', 'desc')
+            ->limit(5)
             ->get();
-        $newProducts = product::where('show_in_home', 1)->orderBy('created_at', 'desc')->limit(6)->get();
+            // dd($newProducts);
+        // $newProducts = product::where('show_in_home', 1)->orderBy('created_at', 'desc')->limit(6)->get();
         foreach ($products as $product) {
             if ($product->media->isNotEmpty()) {
                 foreach ($product->media as $media) {

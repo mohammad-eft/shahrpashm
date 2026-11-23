@@ -218,7 +218,7 @@
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-5">
 
-                @foreach ($products as $product)
+                @foreach ($newProducts  as $product)
 
                     <div class="products group min-w-0 overflow-hidden rounded-xl sm:rounded-2xl border border-[#1E3F34]/10 bg-white transition duration-300 hover:-translate-y-1.5 hover:border-[#C6A77D]/60 hover:shadow-xl hover:shadow-[#1E3F34]/10"
                          data-product-id="{{ $product->id }}">
