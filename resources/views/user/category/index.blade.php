@@ -5,7 +5,7 @@
 
 @section('content')
 
-<div class="w-[94%] max-w-[1440px] mx-auto pt-5 sm:pt-7 pb-12">
+<div class="w-[94%] max-w-[1440px] mx-auto pt-9 sm:pt-10 pb-12">
 
     <div class="flex items-center gap-3 mb-8 sm:mb-10">
         <span class="w-9 h-1 rounded-full bg-[#C6A77D]"></span>
