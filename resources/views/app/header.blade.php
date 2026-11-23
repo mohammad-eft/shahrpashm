@@ -52,7 +52,10 @@
                     </div>
                     <a href="{{ route('home') }}"
                         class="hidden xl:w-1/6 lg:w-1/4 max-lg:w-1/3 h-full lg:flex lg:justify-start justify-center items-center">
-                        <img src="{{ asset('storage/' . $setting['logo']) }}" alt="" class="w-20">
+                        {{-- <img src="{{ asset('storage/' . $setting['logo']) }}" alt="" class="w-40"> --}}
+                        <img src="{{ asset('storage/' . $setting['logo']) }}"
+                        alt="شهرپشم"
+                        class="w-20 h-16 object-contain">
                     </a>
 
                     <ul class="h-full flex gap-4 lg:gap-6 xl:gap-10 justify-center items-center max-lg:hidden">

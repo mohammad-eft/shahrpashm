@@ -196,6 +196,7 @@
     </section>
 
 
+    
     {{-- POPULAR PRODUCTS --}}
     <section id="محبوب ترین محصولات" class="pb-12 sm:pb-16 lg:pb-20">
 
@@ -210,21 +211,20 @@
                 </div>
 
                 <a href="{{ route('product.index') }}"
-                   class="shrink-0 text-xs sm:text-sm font-bold text-[#1E3F34] hover:text-[#9B7A50] transition">
-                    مشاهده همه
-                    ←
+                class="shrink-0 text-xs sm:text-sm font-bold text-[#1E3F34] hover:text-[#9B7A50] transition">
+                    مشاهده همه ←
                 </a>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-5">
 
-                @foreach ($newProducts  as $product)
+                @foreach ($newProducts as $product)
 
-                    <div class="products group min-w-0 overflow-hidden rounded-xl sm:rounded-2xl border border-[#1E3F34]/10 bg-white transition duration-300 hover:-translate-y-1.5 hover:border-[#C6A77D]/60 hover:shadow-xl hover:shadow-[#1E3F34]/10"
-                         data-product-id="{{ $product->id }}">
+                    <div class="products group flex h-full min-w-0 flex-col overflow-hidden rounded-xl sm:rounded-2xl border border-[#1E3F34]/10 bg-white transition duration-300 hover:-translate-y-1.5 hover:border-[#C6A77D]/60 hover:shadow-xl hover:shadow-[#1E3F34]/10"
+                        data-product-id="{{ $product->id }}">
 
                         <a href="{{ route('product.show', [$product->id]) }}"
-                           class="relative block h-[155px] sm:h-[190px] lg:h-[220px] overflow-hidden bg-[#F5F0E6]">
+                        class="relative block h-[155px] sm:h-[190px] lg:h-[220px] shrink-0 overflow-hidden bg-[#F5F0E6]">
 
                             <img
                                 src="{{ asset('storage/'.$product->image) }}"
@@ -234,14 +234,18 @@
                             >
                         </a>
 
-                        <div class="flex flex-col gap-3 p-3 sm:p-4">
+                        <div class="flex flex-1 flex-col gap-3 p-3 sm:p-4">
 
+                            {{-- عنوان محصول --}}
                             <a href="{{ route('product.show', [$product->id]) }}"
-                               class="line-clamp-2 min-h-[44px] text-xs sm:text-sm font-bold leading-7 text-[#1E3F34] transition hover:text-[#9B7A50]">
+                            class="h-14 shrink-0 overflow-hidden line-clamp-2 text-xs sm:text-sm font-bold leading-7 text-[#1E3F34] transition hover:text-[#9B7A50]">
+
                                 {{ $product->title }}
+
                             </a>
 
-                            <div class="flex flex-wrap items-center gap-2 min-h-6">
+                            {{-- قیمت --}}
+                            <div class="flex min-h-12 flex-wrap items-center gap-2">
 
                                 @if($product->secondary_price)
 
@@ -266,25 +270,36 @@
 
                             </div>
 
-                            <div class="addToCartBtns"
-                                 data-product-id="{{ $product->id }}">
+                            {{-- دکمه سبد خرید --}}
+                            <div class="addToCartBtns mt-auto h-11 shrink-0"
+                                data-product-id="{{ $product->id }}">
 
                                 @if ($product->count > 0)
 
-                                    <button onclick="addToCart(this)" class="w-full p-3 h-full bg-(--light-green-btn) flex gap-2 justify-center items-center rounded-xl cursor-pointer transition-all duration-300 hover:bg-(--green-btn) group">
+                                    <button onclick="addToCart(this)"
+                                            class="w-full h-full bg-(--light-green-btn) flex gap-2 justify-center items-center rounded-xl cursor-pointer transition-all duration-300 hover:bg-(--green-btn) group">
+
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="lg:size-4 size-3 fill-(--primary-text-color) transition-all duration-300 group-hover:fill-white">
-                                                <path d="M16 0H0V32H16 67.2l77.2 339.5 2.8 12.5H160 496h16V352H496 172.8l-14.5-64H496L566 64l10-32H542.5 100L95.6 12.5 92.8 0H80 16zm91.3 64H532.5l-60 192H151L107.3 64zM184 432a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm0 80a56 56 0 1 0 0-112 56 56 0 1 0 0 112zm248-56a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm80 0a56 56 0 1 0 -112 0 56 56 0 1 0 112 0z">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 576 512"
+                                                class="lg:size-4 size-3 fill-(--primary-text-color) transition-all duration-300 group-hover:fill-white">
+
+                                                <path d="M16 0H0V32H16 67.2l77.2 339.5 2.8 12.5H160 496h16V352H496 172.8l-14.5-64H496L566 64l10-32H542.5 100L95.6 12.5 92.8 0H80 16zm91.3 64H532.5l-60 192H151L107.3 64zM184 432a24 24 0 1 1 0 48 24 24 0 0 1 0-48zm0 80a56 56 0 1 0 0-112 56 56 0 0 0 0 112zm248-56a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm80 0a56 56 0 1 0 -112 0 56 56 0 0 0 112 0z">
                                                 </path>
+
                                             </svg>
                                         </div>
-                                        <span class="lg:text-sm text-[10px] text-(--primary-text-color) font-bold transition-all duration-300 group-hover:text-white">افزودن به سبد خرید</span>
+
+                                        <span class="lg:text-sm text-[10px] text-(--primary-text-color) font-bold transition-all duration-300 group-hover:text-white">
+                                            افزودن به سبد خرید
+                                        </span>
+
                                     </button>
 
                                 @else
 
                                     <button
-                                        class="flex w-full min-h-10 items-center justify-center rounded-xl bg-red-50 px-2 py-2.5 text-xs font-bold text-red-600 cursor-not-allowed"
+                                        class="flex w-full h-full items-center justify-center rounded-xl bg-red-50 px-2 text-xs font-bold text-red-600 cursor-not-allowed"
                                         disabled>
                                         عدم موجودی
                                     </button>
@@ -301,6 +316,7 @@
             </div>
         </div>
     </section>
+
 
 </main>
 
