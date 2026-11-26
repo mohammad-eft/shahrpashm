@@ -5,6 +5,15 @@
 
 @section('content')
 
+@session('clearStorage')
+    <script>
+        localStorage.clear();
+    </script>
+@endsession
+
+<div class="fixed z-9999 top-30 lg:left-10 lg:translate-x-0 left-1/2 translate-x-1/2 px-3 py-1.5 rounded-md text-(--primary-text-color) bg-white border-1 border-(--border-color) transition-all duration-300 @if(!session('clearStorage')) invisible opacity-0 @endif" id="setOrderMessage">
+    محصول با موفقیت ثبت شد
+</div>
 <main class="w-full overflow-x-clip text-[#263C32]">
 
     {{-- HERO --}}
@@ -319,5 +328,12 @@
 
 
 </main>
-
+<script>
+    let setOrderMessage = document.getElementById('setOrderMessage')
+    if(!setOrderMessage.classList.contains('invisible')){
+        setTimeout(()=>{
+            setOrderMessage.classList.add('invisible', 'opacity-0')
+        }, 3000)
+    }
+</script>
 @endsection
